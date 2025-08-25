@@ -1,0 +1,2723 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuroCor - Презентація</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Source+Sans+Pro:wght@300;400;600;700&family=Roboto:wght@300;400;500;700&display=swap');
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #ffffff;
+            overflow: hidden;
+            color: #1f2937;
+            letter-spacing: 0.3px;
+            word-spacing: 2px;
+        }
+        
+        .clinical-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #ffffff;
+            z-index: -1;
+        }
+        
+        .hologram-effect {
+            position: relative;
+        }
+        
+        .hologram-effect::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(0,255,255,0.1) 50%, transparent);
+            animation: scanLine 3s linear infinite;
+            pointer-events: none;
+        }
+        
+        @keyframes scanLine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        .modern-glow {
+            animation: modernPulse 3s ease-in-out infinite;
+        }
+        
+        @keyframes modernPulse {
+            0%, 100% { 
+                transform: scale(1);
+                filter: brightness(1);
+            }
+            50% { 
+                transform: scale(1.02);
+                filter: brightness(1.1);
+            }
+        }
+        
+        .particle-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.6), rgba(16, 185, 129, 0.4), transparent);
+            border-radius: 50%;
+            animation: particleFloat 15s linear infinite;
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+        }
+        
+        @keyframes particleFloat {
+            0% {
+                transform: translateY(110vh) translateX(0) scale(0) rotate(0deg);
+                opacity: 0;
+                filter: hue-rotate(0deg);
+            }
+            10% {
+                opacity: 0.8;
+                transform: translateY(90vh) translateX(10px) scale(0.5) rotate(45deg);
+            }
+            50% {
+                opacity: 1;
+                transform: translateY(50vh) translateX(25px) scale(1) rotate(180deg);
+                filter: hue-rotate(90deg);
+            }
+            90% {
+                opacity: 0.8;
+                transform: translateY(10vh) translateX(40px) scale(0.8) rotate(315deg);
+                filter: hue-rotate(180deg);
+            }
+            100% {
+                transform: translateY(-10vh) translateX(50px) scale(0) rotate(360deg);
+                opacity: 0;
+                filter: hue-rotate(270deg);
+            }
+        }
+        
+        .matrix-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .matrix-char {
+            position: absolute;
+            color: #0f0;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            animation: matrixFall 3s linear infinite;
+        }
+        
+        @keyframes matrixFall {
+            0% {
+                transform: translateY(-100px);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+        
+        .slide {
+            display: none;
+            width: 100%;
+            height: 100vh;
+            position: absolute;
+            top: 0;
+            left: 0;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .slide.active {
+            display: flex !important;
+            position: relative;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 50%, #e2e8f0 100%);
+            position: relative;
+        }
+        
+        .gradient-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 70%, rgba(59, 130, 246, 0.05), transparent 50%),
+                        radial-gradient(circle at 70% 30%, rgba(16, 185, 129, 0.05), transparent 50%);
+            animation: subtleMove 8s ease-in-out infinite;
+        }
+        
+        @keyframes subtleMove {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(20px, -20px) scale(1.02); }
+        }
+        
+        .medical-gradient {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #e2e8f0 100%);
+            position: relative;
+        }
+        
+        .medical-gradient::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 25% 25%, rgba(59, 130, 246, 0.03), transparent 50%),
+                        radial-gradient(circle at 75% 75%, rgba(16, 185, 129, 0.03), transparent 50%);
+            animation: medicalFloat 12s ease-in-out infinite;
+        }
+        
+        @keyframes medicalFloat {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(1deg) scale(1.01); }
+        }
+        
+        @keyframes medicalFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .clinical-card {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            transform: translateY(0);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            letter-spacing: 0.3px;
+            word-spacing: 1px;
+            min-height: auto;
+            height: auto;
+        }
+        
+        .clinical-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+        
+        .clinical-card:hover {
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+            border-color: #3b82f6;
+            transform: translateY(-8px) scale(1.02);
+        }
+        
+        .clinical-card:hover::before {
+            left: 100%;
+        }
+        
+        .ingredient-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.4s ease;
+        }
+        
+        .ingredient-card:hover::before {
+            left: 100%;
+        }
+        
+        .ingredient-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 
+                0 20px 40px rgba(0,0,0,0.08),
+                0 0 0 1px rgba(59, 130, 246, 0.1);
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+        
+        .clinical-badge {
+            background: #ffffff;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            position: relative;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            letter-spacing: 0.3px;
+            word-spacing: 1px;
+        }
+        
+        .clinical-badge::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(59, 130, 246, 0.05), transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .clinical-badge:hover {
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            transform: translateY(-3px);
+        }
+        
+        .clinical-badge:hover::after {
+            opacity: 1;
+        }
+        
+        .medical-indicator {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: pulse 2s infinite;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .status-active { 
+            background: radial-gradient(circle, #10b981, #059669);
+            animation: statusPulse 2s infinite;
+        }
+        .status-warning { 
+            background: radial-gradient(circle, #f59e0b, #d97706);
+            animation: statusPulse 2.5s infinite;
+        }
+        .status-info { 
+            background: radial-gradient(circle, #3b82f6, #2563eb);
+            animation: statusPulse 1.8s infinite;
+        }
+        
+        @keyframes statusPulse {
+            0%, 100% { 
+                transform: scale(1);
+                box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+            }
+            50% { 
+                transform: scale(1.3);
+                box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+            }
+        }
+        
+        .progress-bar {
+            animation: progressPulse 3s ease-in-out infinite;
+        }
+        
+        @keyframes progressPulse {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.2); }
+        }
+        
+        .counter {
+            animation: counterGlow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes counterGlow {
+            from { 
+                text-shadow: 0 0 5px rgba(59, 130, 246, 0.3);
+            }
+            to { 
+                text-shadow: 0 0 15px rgba(59, 130, 246, 0.6);
+            }
+        }
+        
+        .brain-waves {
+            animation: brainActivity 4s ease-in-out infinite;
+        }
+        
+        @keyframes brainActivity {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-2px); }
+        }
+        
+        .wave-1 { animation: waveMove1 3s ease-in-out infinite; }
+        .wave-2 { animation: waveMove2 2.5s ease-in-out infinite; }
+        .wave-3 { animation: waveMove3 3.5s ease-in-out infinite; }
+        
+        @keyframes waveMove1 {
+            0%, 100% { stroke-dasharray: 0, 300; }
+            50% { stroke-dasharray: 150, 150; }
+        }
+        
+        @keyframes waveMove2 {
+            0%, 100% { stroke-dasharray: 0, 300; }
+            50% { stroke-dasharray: 100, 200; }
+        }
+        
+        @keyframes waveMove3 {
+            0%, 100% { stroke-dasharray: 0, 300; }
+            50% { stroke-dasharray: 200, 100; }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.4s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { 
+                opacity: 0; 
+                transform: translateY(40px) scale(0.9) rotateX(10deg); 
+                filter: blur(10px);
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0) scale(1) rotateX(0deg); 
+                filter: blur(0px);
+            }
+        }
+        
+        .staggered-fade {
+            animation: fadeIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+        
+        .slide-in-left {
+            animation: slideInLeft 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        @keyframes slideInLeft {
+            from { 
+                opacity: 0; 
+                transform: translateX(-80px) scale(0.8) rotateY(15deg); 
+                filter: blur(5px);
+            }
+            to { 
+                opacity: 1; 
+                transform: translateX(0) scale(1) rotateY(0deg); 
+                filter: blur(0px);
+            }
+        }
+        
+        .slide-in-right {
+            animation: slideInRight 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        @keyframes slideInRight {
+            from { 
+                opacity: 0; 
+                transform: translateX(80px) scale(0.8) rotateY(-15deg); 
+                filter: blur(5px);
+            }
+            to { 
+                opacity: 1; 
+                transform: translateX(0) scale(1) rotateY(0deg); 
+                filter: blur(0px);
+            }
+        }
+        
+        .bounce-in {
+            animation: bounceIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        @keyframes bounceIn {
+            0% { 
+                opacity: 0; 
+                transform: scale(0.1) rotate(-180deg) translateY(-100px); 
+                filter: hue-rotate(180deg);
+            }
+            60% { 
+                opacity: 1; 
+                transform: scale(1.3) rotate(15deg) translateY(-10px); 
+                filter: hue-rotate(0deg);
+            }
+            80% {
+                transform: scale(0.9) rotate(-5deg) translateY(5px);
+            }
+            100% { 
+                opacity: 1; 
+                transform: scale(1) rotate(0deg) translateY(0px); 
+                filter: hue-rotate(0deg);
+            }
+        }
+        
+        .rotate-in {
+            animation: rotateIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        @keyframes rotateIn {
+            from { opacity: 0; transform: rotate(-270deg) scale(0.2); }
+            to { opacity: 1; transform: rotate(0deg) scale(1); }
+        }
+        
+        .zoom-in {
+            animation: zoomIn 0.3s ease-out;
+        }
+        
+        @keyframes zoomIn {
+            from { opacity: 0; transform: scale(0.5); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        
+        .slide-up {
+            animation: slideUp 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .flip-in {
+            animation: flipIn 0.6s ease-out;
+        }
+        
+        @keyframes flipIn {
+            from { opacity: 0; transform: rotateY(-90deg) scale(0.8); }
+            to { opacity: 1; transform: rotateY(0deg) scale(1); }
+        }
+        
+        .float {
+            animation: float 2s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            25% { transform: translateY(-8px) rotate(1deg); }
+            75% { transform: translateY(-5px) rotate(-1deg); }
+        }
+        
+        .indication-card-enter {
+            animation: indicationCardEnter 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+        
+        @keyframes indicationCardEnter {
+            0% {
+                opacity: 0;
+                transform: translateY(40px) scale(0.8) rotateX(20deg);
+                filter: blur(10px);
+            }
+            60% {
+                opacity: 0.8;
+                transform: translateY(-5px) scale(1.05) rotateX(-2deg);
+                filter: blur(2px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1) rotateX(0deg);
+                filter: blur(0px);
+            }
+        }
+        
+        .complex-treatment-enter {
+            animation: complexTreatmentEnter 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+        
+        @keyframes complexTreatmentEnter {
+            0% {
+                opacity: 0;
+                transform: translateX(60px) scale(0.9) rotateY(15deg);
+                filter: blur(8px);
+            }
+            50% {
+                opacity: 0.7;
+                transform: translateX(-10px) scale(1.02) rotateY(-3deg);
+                filter: blur(3px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0) scale(1) rotateY(0deg);
+                filter: blur(0px);
+            }
+        }
+        
+        .stat-counter {
+            animation: statPulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes statPulse {
+            0%, 100% {
+                transform: scale(1);
+                text-shadow: 0 0 5px rgba(59, 130, 246, 0.3);
+            }
+            50% {
+                transform: scale(1.05);
+                text-shadow: 0 0 15px rgba(59, 130, 246, 0.6);
+            }
+        }
+        
+        .indication-icon-float {
+            animation: indicationIconFloat 3s ease-in-out infinite;
+        }
+        
+        @keyframes indicationIconFloat {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg) scale(1);
+            }
+            25% {
+                transform: translateY(-6px) rotate(2deg) scale(1.05);
+            }
+            50% {
+                transform: translateY(-3px) rotate(-1deg) scale(1.02);
+            }
+            75% {
+                transform: translateY(-8px) rotate(1deg) scale(1.03);
+            }
+        }
+        
+        .hover-lift {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-12px) scale(1.05) rotateX(5deg);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.15),
+                0 0 0 1px rgba(59, 130, 246, 0.1);
+            filter: brightness(1.05);
+        }
+        
+        .shimmer-effect {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .shimmer-effect::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.8s ease;
+        }
+        
+        .shimmer-effect:hover::before {
+            left: 100%;
+        }
+        
+        .glow {
+            animation: glow 1.5s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            from { 
+                box-shadow: 0 0 10px rgba(255, 255, 255, 0.3), 
+                           0 0 20px rgba(255, 255, 255, 0.2),
+                           inset 0 0 10px rgba(255, 255, 255, 0.1);
+            }
+            to { 
+                box-shadow: 0 0 25px rgba(255, 255, 255, 0.6), 
+                           0 0 40px rgba(255, 255, 255, 0.4),
+                           inset 0 0 20px rgba(255, 255, 255, 0.2);
+            }
+        }
+        
+        .simple-shadow {
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .scale-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+        }
+        
+        .scale-hover:hover {
+            transform: scale(1.15) rotate(5deg) translateY(-10px);
+            filter: brightness(1.2) saturate(1.3) drop-shadow(0 10px 20px rgba(0,0,0,0.3));
+            box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+        }
+        
+        .gradient-shift {
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3, #54a0ff, #5f27cd);
+            background-size: 800% 800%;
+            animation: gradientShift 4s ease infinite;
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            25% { background-position: 100% 0%; }
+            50% { background-position: 100% 100%; }
+            75% { background-position: 0% 100%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .simple-bg {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 50%, #475569 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .simple-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.1), transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.1), transparent 50%);
+            animation: bgFloat 15s ease-in-out infinite;
+        }
+        
+        @keyframes bgFloat {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(30px, -20px) rotate(1deg); }
+            66% { transform: translate(-20px, 30px) rotate(-1deg); }
+        }
+        
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .indicator.active {
+            background-color: white;
+            transform: scale(1.2);
+        }
+        
+        .indicator:hover {
+            background-color: rgba(255, 255, 255, 0.6);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 overflow-hidden">
+    <div class="clinical-bg"></div>
+    <div class="particle-bg" id="particles"></div>
+    <div class="matrix-rain" id="matrix"></div>
+    <div class="w-full h-screen relative">
+        <!-- Slide 1: Logo -->
+        <div class="slide active bg-white items-center justify-center" id="slide-1">
+            <div class="text-center max-w-4xl mx-auto px-8">
+                <div class="flex justify-center items-center h-full">
+                    <img src="assets/FJGTxmY7nYxO2gRhDrP1X.png" alt="Boiko Clinic Logo" class="max-w-2xl w-full h-auto" style="max-height: 400px; object-fit: contain;">
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2: Склад препарату -->
+        <div class="slide bg-gray-50 items-center justify-center" id="slide-2">
+            <!-- Логотип компанії -->
+            <div class="absolute bottom-4 right-4 z-10">
+                <img src="assets/FJGTxmY7nYxO2gRhDrP1X.png" alt="Boiko Clinic Logo" class="h-20 w-auto opacity-95 shadow-xl rounded-lg bg-white p-3 border border-gray-200">
+            </div>
+            <div class="max-w-7xl mx-auto px-4 w-full flex flex-col py-1">
+                <div class="text-center mb-3">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-2" style="font-family: 'Inter'; letter-spacing: 0.5px;">
+                        Склад препарату НейроКор
+                    </h2>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4 flex-1">
+                    <!-- Left Column - ЗБІЛЬШЕНІ КОМПОНЕНТИ -->
+                    <div class="grid grid-cols-2 gap-3">
+                        <!-- Рядок 1 -->
+                        <div class="clinical-card bg-white p-3">
+                            <div class="flex items-center space-x-3 mb-3">
+                                <div class="w-16 h-16 bg-blue-600 rounded-xl flex items-center justify-center text-white shadow-lg">
+                                    <span class="text-3xl">💪</span>
+                                </div>
+                                <div class="flex-1">
+                                    <h3 class="font-semibold text-gray-900 text-sm leading-tight">L-карнітин</h3>
+                                    <p class="text-gray-600 text-xs font-medium">250 мг</p>
+                                </div>
+                            </div>
+                            <div class="text-xs text-blue-600 bg-blue-50 px-3 py-1.5 rounded-lg border border-blue-200 font-mono text-center mb-2">C₇H₁₅NO₃</div>
+                            <div class="text-xs text-gray-500 bg-gray-100 px-3 py-1.5 rounded-lg text-center font-medium">Енергетичний обмін</div>
+                        </div>
+                        
+                        <div class="clinical-card bg-white p-3">
+                            <div class="flex items-center space-x-2 mb-2">
+                                <div class="w-16 h-16 bg-emerald-600 rounded-xl flex items-center justify-center text-white shadow-lg">
+                                    <span class="text-3xl">🩸</span>
+                                </div>
+                                <div class="flex-1">
+                                    <h3 class="font-semibold text-gray-900 text-xs leading-tight">L-аргінін</h3>
+                                    <p class="text-gray-600 text-xs font-medium">50 мг</p>
+                                </div>
+                            </div>
+                            <div class="text-xs text-emerald-600 bg-emerald-50 px-2 py-1 rounded-lg border border-emerald-200 font-mono text-center mb-1">C₆H₁₄N₄O₂</div>
+                            <div class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-lg text-center font-medium">Покращує кровообіг</div>
+                        </div>
+                        
+                        <!-- Рядок 2 -->
+                        <div class="clinical-card bg-white p-3">
+                            <div class="flex items-center space-x-2 mb-2">
+                               <div class="w-16 h-16 bg-pink-500 rounded-xl flex items-center justify-center text-white shadow-lg">
+                                    <span class="text-3xl">🌺</span>
+                                </div>
+                                <div class="flex-1">
+                                    <h3 class="font-semibold text-gray-900 text-xs leading-tight">Барвінок малий</h3>
+                                    <p class="text-gray-600 text-xs font-medium">10 мг</p>
+                                </div>
+                            </div>
+                            <div class="text-xs text-purple-600 bg-purple-50 px-2 py-1 rounded-lg border border-purple-200 font-mono text-center mb-1">Вінкамін</div>
+                            <div class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-lg text-center font-medium">Мозковий кровообіг</div>
+                        </div>
+                        
+                        <div class="clinical-card bg-white p-3">
+                            <div class="flex items-center space-x-2 mb-2">
+                                <div class="w-16 h-16 bg-amber-600 rounded-xl flex items-center justify-center text-white shadow-lg">
+                                    <span class="text-3xl">🍃</span>
+                                </div>
+                                <div class="flex-1">
+                                    <h3 class="font-semibold text-gray-900 text-xs leading-tight">Гінкго білоба</h3>
+                                    <p class="text-gray-600 text-xs font-medium">40 мг</p>
+                                </div>
+                            </div>
+                            <div class="text-xs text-amber-600 bg-amber-50 px-2 py-1 rounded-lg border border-amber-200 font-mono text-center mb-1">Флавоноїди</div>
+                            <div class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-lg text-center font-medium">Пам'ять та концентрація</div>
+                        </div>
+                        
+                        <!-- Рядок 3 - ЦЕНТРОВАНИЙ -->
+                        <div class="col-span-2 flex justify-center">
+                            <div class="clinical-card bg-white p-3 w-full max-w-sm">
+                                <div class="flex items-center space-x-2 mb-2">
+                                    <div class="w-20 h-20 bg-red-600 rounded-xl flex items-center justify-center text-white shadow-lg">
+                                        <svg class="w-12 h-12" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                                            <path d="M8 10l2 2 4-4" stroke="white" stroke-width="1.5" fill="none"/>
+                                        </svg>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h3 class="font-semibold text-gray-900 text-xs leading-tight">Екстракт глоду</h3>
+                                        <p class="text-gray-600 text-xs font-medium">150 мг</p>
+                                    </div>
+                                </div>
+                                <div class="text-xs text-red-600 bg-red-50 px-2 py-1 rounded-lg border border-red-200 font-mono text-center mb-1">Проціанідини</div>
+                                <div class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-lg text-center font-medium">Серцево-судинна система</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Right Column - ТІЛЬКИ КОРОБКА БЕЗ ПІДПИСІВ -->
+                    <div class="flex justify-center items-center">
+                        <div class="p-4">
+                            <!-- ТІЛЬКИ ЗОБРАЖЕННЯ КОРОБКИ БЕЗ РАМКИ ТА ПІДПИСІВ -->
+                            <img src="assets/wuKM9Y6TQskEe1Rj7YTWN.png" alt="NeuroCor Product" class="w-full max-w-2xl h-auto object-contain mx-auto drop-shadow-2xl">
+                        </div>
+                    </div>
+                    
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Показання до застосування -->
+        <div class="slide bg-gray-50 items-center justify-center" id="slide-3">
+            <!-- Логотип компанії -->
+            <div class="absolute bottom-4 right-4 z-10">
+                <img src="assets/FJGTxmY7nYxO2gRhDrP1X.png" alt="Boiko Clinic Logo" class="h-14 w-auto opacity-90 shadow-lg rounded-lg bg-white p-2">
+            </div>
+            <div class="max-w-7xl mx-auto px-4 w-full h-full flex flex-col py-2">
+                <h2 class="text-3xl font-bold text-center mb-4 text-gray-900" style="font-family: 'Inter'; letter-spacing: 0.5px; word-spacing: 3px;">Ефекти НейроКор</h2>
+                
+                <div class="grid grid-cols-3 gap-4 flex-1">
+                    <!-- Left Column - Effects 1-2 -->
+                    <div class="grid grid-cols-1 gap-4">
+                        <div class="clinical-card bg-white p-4">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-16 h-16 bg-red-600 rounded-xl flex items-center justify-center text-white shadow-lg flex-shrink-0">
+                                    <span class="text-3xl">🩸</span>
+                                </div>
+                                <div class="flex-1 flex flex-col justify-center">
+                                    <h3 class="font-semibold text-gray-900 mb-2 text-base">Донатор оксиду азоту</h3>
+                                    <p class="text-gray-600 text-sm">Покращує мікроциркуляцію та судинну функцію</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="clinical-card bg-white p-4">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-16 h-16 bg-emerald-600 rounded-xl flex items-center justify-center text-white shadow-lg flex-shrink-0">
+                                    <span class="text-3xl">🍞</span>
+                                </div>
+                                <div class="flex-1 flex flex-col justify-center">
+                                    <h3 class="font-semibold text-gray-900 mb-2 text-base">Якісно розщеплює вуглеводи</h3>
+                                    <p class="text-gray-600 text-sm">Покращує трофіку тканин та енергообмін</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="clinical-card bg-white p-4">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-16 h-16 bg-purple-600 rounded-xl flex items-center justify-center text-white shadow-lg flex-shrink-0">
+                                    <span class="text-3xl">🛡️</span>
+                                </div>
+                                <div class="flex-1 flex flex-col justify-center">
+                                    <h3 class="font-semibold text-gray-900 mb-2 text-base">Гальмує розвиток атеросклерозу</h3>
+                                    <p class="text-gray-600 text-sm">та підвищення артеріального тиску</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Center Column - Target Diagram -->
+                    <div class="flex flex-col justify-center">
+                        <div class="clinical-card bg-white p-4">
+                            <h3 class="font-semibold text-base text-gray-900 mb-3 text-center">Цілі впливу НейроКор</h3>
+                            <div class="relative flex items-center justify-center">
+                                <svg class="w-full max-w-sm h-48" viewBox="0 0 500 280">
+                                    <!-- Enhanced background glow -->
+                                    <defs>
+                                        <radialGradient id="bodyGlow" cx="50%" cy="50%" r="50%">
+                                            <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:0.1"/>
+                                            <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:0"/>
+                                        </radialGradient>
+                                        <filter id="targetGlow">
+                                            <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+                                            <feMerge> 
+                                                <feMergeNode in="coloredBlur"/>
+                                                <feMergeNode in="SourceGraphic"/>
+                                            </feMerge>
+                                        </filter>
+                                    </defs>
+                                    
+                                    <!-- Background aura -->
+                                    <circle cx="250" cy="140" r="120" fill="url(#bodyGlow)" opacity="0.6">
+                                        <animate attributeName="r" values="120;140;120" dur="4s" repeatCount="indefinite"/>
+                                    </circle>
+                                    
+                                    <!-- ЧОЛОВІЧОК У ПОВНИЙ ЗРІСТ З ПРАВИЛЬНИМИ ПРОПОРЦІЯМИ -->
+                                    <g transform="translate(250,140) scale(1.4)">
+                                        <!-- Head - пропорційний -->
+                                        <circle cx="0" cy="-65" r="15" fill="none" stroke="#1f2937" stroke-width="3">
+                                            <animate attributeName="stroke-width" values="3;4;3" dur="3s" repeatCount="indefinite"/>
+                                        </circle>
+                                        <!-- Обличчя -->
+                                        <circle cx="-4" cy="-67" r="1.5" fill="#1f2937"/>
+                                        <circle cx="4" cy="-67" r="1.5" fill="#1f2937"/>
+                                        <path d="M-3,-58 Q0,-55 3,-58" stroke="#1f2937" stroke-width="1.5" fill="none"/>
+                                        
+                                        <!-- Neck -->
+                                        <line x1="0" y1="-50" x2="0" y2="-40" stroke="#1f2937" stroke-width="3"/>
+                                        
+                                        <!-- Body - довший для повного зросту -->
+                                        <line x1="0" y1="-40" x2="0" y2="20" stroke="#1f2937" stroke-width="4"/>
+                                        
+                                        <!-- Arms - пропорційні -->
+                                        <line x1="0" y1="-25" x2="-25" y2="-5" stroke="#1f2937" stroke-width="3"/>
+                                        <line x1="0" y1="-25" x2="25" y2="-5" stroke="#1f2937" stroke-width="3"/>
+                                        <!-- Передпліччя -->
+                                        <line x1="-25" y1="-5" x2="-30" y2="15" stroke="#1f2937" stroke-width="3"/>
+                                        <line x1="25" y1="-5" x2="30" y2="15" stroke="#1f2937" stroke-width="3"/>
+                                        <!-- Кисті -->
+                                        <circle cx="-30" cy="15" r="2.5" fill="#1f2937"/>
+                                        <circle cx="30" cy="15" r="2.5" fill="#1f2937"/>
+                                        
+                                        <!-- Legs - повної довжини -->
+                                        <line x1="0" y1="20" x2="-18" y2="60" stroke="#1f2937" stroke-width="3"/>
+                                        <line x1="0" y1="20" x2="18" y2="60" stroke="#1f2937" stroke-width="3"/>
+                                        <!-- Гомілки - довгі -->
+                                        <line x1="-18" y1="60" x2="-15" y2="100" stroke="#1f2937" stroke-width="3"/>
+                                        <line x1="18" y1="60" x2="15" y2="100" stroke="#1f2937" stroke-width="3"/>
+                                        <!-- Feet -->
+                                        <line x1="-15" y1="100" x2="-22" y2="103" stroke="#1f2937" stroke-width="3"/>
+                                        <line x1="15" y1="100" x2="22" y2="103" stroke="#1f2937" stroke-width="3"/>
+                                        
+                                        <!-- Одяг -->
+                                        <rect x="-8" y="-25" width="16" height="25" fill="none" stroke="#374151" stroke-width="2" rx="3"/>
+                                        <!-- Ґудзики -->
+                                        <circle cx="0" cy="-15" r="1" fill="#374151"/>
+                                        <circle cx="0" cy="-8" r="1" fill="#374151"/>
+                                        <circle cx="0" cy="-1" r="1" fill="#374151"/>
+                                    </g>
+                                    
+                                    <!-- МЕНШІ ТОЧКИ НА БІЛЬШОМУ ЧОЛОВІЧКУ -->
+                                    
+                                    <!-- 1. МОЗОК (ЦНС) - ФІОЛЕТОВИЙ НА ГОЛОВІ -->
+                                    <circle cx="250" cy="86" r="10" fill="#8b5cf6" opacity="1" filter="url(#targetGlow)">
+                                        <animate attributeName="r" values="10;14;10" dur="2s" repeatCount="indefinite"/>
+                                        <animate attributeName="opacity" values="0.9;1;0.9" dur="2s" repeatCount="indefinite"/>
+                                    </circle>
+                                    <text x="175" y="70" class="text-sm font-bold fill-purple-600">МОЗОК</text>
+                                    <text x="170" y="83" class="text-xs fill-purple-500">Ноотропна дія</text>
+                                    
+                                    <!-- 2. СЕРЦЕ (ССС) - ЧЕРВОНИЙ НА ГРУДЯХ -->
+                                    <circle cx="250" cy="132" r="8" fill="#ef4444" opacity="1" filter="url(#targetGlow)">
+                                        <animate attributeName="r" values="8;12;8" dur="1.8s" repeatCount="indefinite"/>
+                                        <animate attributeName="opacity" values="0.9;1;0.9" dur="1.8s" repeatCount="indefinite"/>
+                                    </circle>
+                                    <text x="290" y="127" class="text-sm font-bold fill-red-600">СЕРЦЕ</text>
+                                    <text x="290" y="140" class="text-xs fill-red-500">Кардіопротекція</text>
+                                    
+                                    <!-- 3. СУДИННА СИСТЕМА - СИНІ ТОЧКИ НА РУКАХ -->
+                                    <circle cx="202" cy="140" r="6" fill="#3b82f6" opacity="1" filter="url(#targetGlow)">
+                                        <animate attributeName="r" values="6;9;6" dur="1.5s" repeatCount="indefinite"/>
+                                        <animate attributeName="opacity" values="0.8;1;0.8" dur="1.5s" repeatCount="indefinite"/>
+                                    </circle>
+                                    <circle cx="298" cy="140" r="6" fill="#3b82f6" opacity="1" filter="url(#targetGlow)">
+                                        <animate attributeName="r" values="6;9;6" dur="1.3s" repeatCount="indefinite"/>
+                                        <animate attributeName="opacity" values="0.8;1;0.8" dur="1.3s" repeatCount="indefinite"/>
+                                    </circle>
+                                    <text x="135" y="135" class="text-sm font-bold fill-blue-600">СУДИНИ</text>
+                                    <text x="130" y="148" class="text-xs fill-blue-500">Кровообіг</text>
+                                    
+                                    <!-- 4. МЕТАБОЛІЗМ - ЗЕЛЕНИЙ НА ЖИВОТІ -->
+                                    <circle cx="250" cy="168" r="6" fill="#10b981" opacity="1" filter="url(#targetGlow)">
+                                        <animate attributeName="r" values="6;9;6" dur="2.2s" repeatCount="indefinite"/>
+                                        <animate attributeName="opacity" values="0.8;1;0.8" dur="2.2s" repeatCount="indefinite"/>
+                                    </circle>
+                                    <text x="285" y="173" class="text-sm font-bold fill-emerald-600">МЕТАБОЛІЗМ</text>
+                                    <text x="290" y="186" class="text-xs fill-emerald-500">Енергообмін</text>
+                                    
+                                    <!-- ПОТУЖНІ ЕФЕКТНІ ХВИЛІ -->
+                                    
+                                    <!-- Мозкові хвилі - ФІОЛЕТОВІ -->
+                                    <circle cx="250" cy="100" r="35" fill="none" stroke="#8b5cf6" stroke-width="4" opacity="0.7">
+                                        <animate attributeName="r" values="35;55;35" dur="3s" repeatCount="indefinite"/>
+                                        <animate attributeName="opacity" values="0.7;0;0.7" dur="3s" repeatCount="indefinite"/>
+                                    </circle>
+                                    <circle cx="250" cy="100" r="45" fill="none" stroke="#a855f7" stroke-width="3" opacity="0.5">
+                                        <animate attributeName="r" values="45;65;45" dur="3.5s" repeatCount="indefinite"/>
+                                        <animate attributeName="opacity" values="0.5;0;0.5" dur="3.5s" repeatCount="indefinite"/>
+                                    </circle>
+                                    
+                                    <!-- Серцеві хвилі - ЧЕРВОНІ -->
+                                    <circle cx="250" cy="140" r="30" fill="none" stroke="#ef4444" stroke-width="4" opacity="0.8">
+                                        <animate attributeName="r" values="30;45;30" dur="2.5s" repeatCount="indefinite"/>
+                                        <animate attributeName="opacity" values="0.8;0;0.8" dur="2.5s" repeatCount="indefinite"/>
+                                    </circle>
+                                    <circle cx="250" cy="140" r="40" fill="none" stroke="#f87171" stroke-width="3" opacity="0.6">
+                                        <animate attributeName="r" values="40;55;40" dur="3s" repeatCount="indefinite"/>
+                                        <animate attributeName="opacity" values="0.6;0;0.6" dur="3s" repeatCount="indefinite"/>
+                                    </circle>
+                                    
+                                    <!-- Судинні хвилі - СИНІ -->
+                                    <circle cx="210" cy="125" r="20" fill="none" stroke="#3b82f6" stroke-width="3" opacity="0.6">
+                                        <animate attributeName="r" values="20;30;20" dur="2s" repeatCount="indefinite"/>
+                                        <animate attributeName="opacity" values="0.6;0;0.6" dur="2s" repeatCount="indefinite"/>
+                                    </circle>
+                                    <circle cx="290" cy="125" r="20" fill="none" stroke="#3b82f6" stroke-width="3" opacity="0.6">
+                                        <animate attributeName="r" values="20;30;20" dur="2.2s" repeatCount="indefinite"/>
+                                        <animate attributeName="opacity" values="0.6;0;0.6" dur="2.2s" repeatCount="indefinite"/>
+                                    </circle>
+                                    
+                                    <!-- Метаболічні хвилі - ЗЕЛЕНІ -->
+                                    <circle cx="250" cy="175" r="25" fill="none" stroke="#10b981" stroke-width="3" opacity="0.7">
+                                        <animate attributeName="r" values="25;40;25" dur="2.8s" repeatCount="indefinite"/>
+                                        <animate attributeName="opacity" values="0.7;0;0.7" dur="2.8s" repeatCount="indefinite"/>
+                                    </circle>
+                                    
+                                    <!-- Загальна системна хвиля -->
+                                    <circle cx="250" cy="140" r="90" fill="none" stroke="#6b7280" stroke-width="2" opacity="0.3">
+                                        <animate attributeName="r" values="90;130;90" dur="6s" repeatCount="indefinite"/>
+                                        <animate attributeName="opacity" values="0.3;0;0.3" dur="6s" repeatCount="indefinite"/>
+                                    </circle>
+                                    
+                                    <!-- СИСТЕМНІ З'ЄДНАННЯ МІЖ ОРГАНАМИ -->
+                                    <!-- Мозок до серця -->
+                                    <path d="M250,100 Q240,120 250,140" stroke="#8b5cf6" stroke-width="3" fill="none" opacity="0.6">
+                                        <animate attributeName="stroke-dasharray" values="0 100;60 40;0 100" dur="2s" repeatCount="indefinite"/>
+                                    </path>
+                                    <!-- Серце до метаболізму -->
+                                    <path d="M250,140 Q240,158 250,175" stroke="#ef4444" stroke-width="3" fill="none" opacity="0.6">
+                                        <animate attributeName="stroke-dasharray" values="0 100;60 40;0 100" dur="2.2s" repeatCount="indefinite"/>
+                                    </path>
+                                    <!-- Судини до серця -->
+                                    <path d="M210,125 Q230,132 250,140" stroke="#3b82f6" stroke-width="3" fill="none" opacity="0.6">
+                                        <animate attributeName="stroke-dasharray" values="0 100;60 40;0 100" dur="1.8s" repeatCount="indefinite"/>
+                                    </path>
+                                    <path d="M290,125 Q270,132 250,140" stroke="#3b82f6" stroke-width="3" fill="none" opacity="0.6">
+                                        <animate attributeName="stroke-dasharray" values="0 100;60 40;0 100" dur="1.6s" repeatCount="indefinite"/>
+                                    </path>
+                                    <!-- Мозок до судин -->
+                                    <path d="M250,100 Q230,110 210,125" stroke="#8b5cf6" stroke-width="2" fill="none" opacity="0.4">
+                                        <animate attributeName="stroke-dasharray" values="0 100;40 60;0 100" dur="2.5s" repeatCount="indefinite"/>
+                                    </path>
+                                    <path d="M250,100 Q270,110 290,125" stroke="#8b5cf6" stroke-width="2" fill="none" opacity="0.4">
+                                        <animate attributeName="stroke-dasharray" values="0 100;40 60;0 100" dur="2.3s" repeatCount="indefinite"/>
+                                    </path>
+                                </svg>
+                            </div>
+                            
+                            <div class="grid grid-cols-3 gap-2 text-xs text-gray-700 mt-4">
+                                <div class="text-center">
+                                    <div class="w-4 h-4 bg-purple-600 rounded-full mx-auto mb-1"></div>
+                                    <span class="font-bold text-gray-900 text-xs">ЦНС</span>
+                                    <div class="text-gray-600 text-xs mt-1">Центральна нервова система</div>
+                                    <div class="text-purple-600 text-xs font-semibold mt-1">Ноотропна дія</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="w-4 h-4 bg-red-600 rounded-full mx-auto mb-1"></div>
+                                    <span class="font-bold text-gray-900 text-xs">ССС</span>
+                                    <div class="text-gray-600 text-xs mt-1">Серцево-судинна система</div>
+                                    <div class="text-red-600 text-xs font-semibold mt-1">Кардіопротекція</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="w-4 h-4 bg-blue-600 rounded-full mx-auto mb-1"></div>
+                                    <span class="font-bold text-gray-900 text-xs">Метаболізм</span>
+                                    <div class="text-gray-600 text-xs mt-1">Обмін речовин</div>
+                                    <div class="text-blue-600 text-xs font-semibold mt-1">Енергетичний обмін</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column - Effects 3-4 -->
+                    <div class="grid grid-cols-1 gap-4">
+                        <div class="clinical-card bg-white p-5 h-full">
+                            <div class="flex items-center space-x-4 h-full">
+                                <div class="w-16 h-16 bg-blue-600 rounded-xl flex items-center justify-center text-white shadow-lg flex-shrink-0">
+                                    <span class="text-3xl">🧠</span>
+                                </div>
+                                <div class="flex-1 flex flex-col justify-center">
+                                    <h3 class="font-semibold text-gray-900 mb-2 text-base">Ноотропна та антитромботична дія</h3>
+                                    <p class="text-gray-600 text-sm">Покращує когнітивні функції та запобігає тромбозу</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="clinical-card bg-white p-5 h-full">
+                            <div class="flex items-center space-x-4 h-full">
+                                <div class="w-16 h-16 bg-amber-600 rounded-xl flex items-center justify-center text-white shadow-lg flex-shrink-0">
+                                    <span class="text-3xl">❤️</span>
+                                </div>
+                                <div class="flex-1 flex flex-col justify-center">
+                                    <h3 class="font-semibold text-gray-900 mb-2 text-base">Кардіопротекція та нормалізація серцевого ритму</h3>
+                                    <p class="text-gray-600 text-sm">Захищає серце та покращує трофіку міокарду</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="clinical-card bg-white p-5 h-full">
+                            <div class="flex items-center space-x-4 h-full">
+                                <div class="w-16 h-16 bg-indigo-600 rounded-xl flex items-center justify-center text-white shadow-lg flex-shrink-0">
+                                    <span class="text-3xl">⚡</span>
+                                </div>
+                                <div class="flex-1 flex flex-col justify-center">
+                                    <h3 class="font-semibold text-gray-900 mb-2 text-base">Підвищує загальну витривалість</h3>
+                                    <p class="text-gray-600 text-sm">Покращує енергетичний метаболізм клітин</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom official warning -->
+                <div class="mt-4">
+                    <div class="clinical-card bg-amber-50 border border-amber-200 p-4">
+                        <div class="flex items-center justify-center space-x-3">
+                            <div class="w-8 h-8 bg-amber-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92z"/>
+                                    <path d="M11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"/>
+                                </svg>
+                            </div>
+                            <div class="text-center">
+                                <h3 class="font-semibold text-gray-900 text-sm mb-1">Важливо!</h3>
+                                <p class="text-gray-700 text-sm">НейроКор є дієтичною добавкою, не є лікарським засобом. Перед застосуванням рекомендується консультація з лікарем.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<!-- Slide 4: Показання та Комплексне Лікування -->
+<div id="slide-4" class="slide bg-gray-50 flex flex-col items-center justify-center px-6 py-6 relative" style="aspect-ratio: 16/9; overflow: hidden;">
+
+  <!-- Заголовок -->
+  <h2 class="text-3xl font-bold text-center text-gray-900 mb-4" style="font-family: 'Inter'; letter-spacing: 0.5px; word-spacing: 2px;">
+    Показання до застосування
+  </h2>
+
+  <!-- Основна сітка -->
+  <div class="grid grid-cols-3 gap-6 w-full max-w-7xl items-center">
+
+    <!-- Колонка 1 -->
+    <div class="flex flex-col gap-3">
+      <div class="clinical-card bg-white p-4 shadow border rounded-xl flex flex-col items-center text-center">
+        <div class="w-16 h-16 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center text-white text-3xl mb-2 shadow">
+          🔺
+        </div>
+        <h4 class="font-semibold text-sm text-gray-900 mb-1">Гіпертонічна хвороба</h4>
+        <p class="text-xs text-gray-600">Комплексне лікування та профілактика гіпертензії</p>
+      </div>
+      <div class="clinical-card bg-white p-4 shadow border rounded-xl flex flex-col items-center text-center">
+        <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center text-white text-3xl mb-2 shadow">
+          ❤️
+        </div>
+        <h4 class="font-semibold text-sm text-gray-900 mb-1">Ішемічна хвороба серця</h4>
+        <p class="text-xs text-gray-600">Покращення функції серця та кровообігу</p>
+      </div>
+      <div class="clinical-card bg-white p-4 shadow border rounded-xl flex flex-col items-center text-center">
+        <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center text-white text-3xl mb-2 shadow">
+          🧠
+        </div>
+        <h4 class="font-semibold text-sm text-gray-900 mb-1">Цереброваскулярні хвороби</h4>
+        <p class="text-xs text-gray-600">Покращення мозкового кровообігу та когнітивних функцій</p>
+      </div>
+    </div>
+
+    <!-- Колонка 2: упаковка -->
+    <div class="flex items-center justify-center">
+      <img src="assets/wuKM9Y6TQskEe1Rj7YTWN.png" alt="NeuroCor Product" class="max-h-[420px] object-contain drop-shadow-xl">
+    </div>
+
+    <!-- Колонка 3 -->
+    <div class="flex flex-col gap-3">
+      <div class="clinical-card bg-white p-4 shadow border rounded-xl flex flex-col items-center text-center">
+        <div class="w-16 h-16 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl flex items-center justify-center text-white text-3xl mb-2 shadow">
+          🍬
+        </div>
+        <h4 class="font-semibold text-sm text-gray-900 mb-1">Цукровий діабет</h4>
+        <p class="text-xs text-gray-600">Підтримка при діабетичних ускладненнях</p>
+      </div>
+      <div class="clinical-card bg-white p-4 shadow border rounded-xl flex flex-col items-center text-center">
+        <div class="w-16 h-16 bg-gradient-to-br from-amber-500 to-amber-600 rounded-xl flex items-center justify-center text-white text-3xl mb-2 shadow">
+          🛑
+        </div>
+        <h4 class="font-semibold text-sm text-gray-900 mb-1">Атеросклероз</h4>
+        <p class="text-xs text-gray-600">Профілактика та уповільнення прогресування</p>
+      </div>
+      <div class="clinical-card bg-white p-4 shadow border rounded-xl flex flex-col items-center text-center">
+        <div class="w-16 h-16 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-xl flex items-center justify-center text-white text-3xl mb-2 shadow">
+          🌡️
+        </div>
+        <h4 class="font-semibold text-sm text-gray-900 mb-1">Вегетосудинні розлади</h4>
+        <p class="text-xs text-gray-600">Нормалізація вегетативної нервової системи</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Логотип -->
+  <div class="absolute bottom-4 right-4 z-10">
+    <img src="assets/FJGTxmY7nYxO2gRhDrP1X.png" alt="Boiko Clinic Logo" class="h-12 w-auto opacity-90 shadow-lg rounded-lg bg-white p-1.5">
+  </div>
+</div>
+
+
+
+        <!-- Slide 5: Спосіб застосування -->
+        <div class="slide bg-gray-50 items-center justify-center" id="slide-5">
+            <!-- Логотип компанії -->
+            <div class="absolute bottom-4 right-4 z-10">
+                <img src="assets/FJGTxmY7nYxO2gRhDrP1X.png" alt="Boiko Clinic Logo" class="h-14 w-auto opacity-90 shadow-lg rounded-lg bg-white p-2">
+            </div>
+            <div class="max-w-7xl mx-auto px-4 w-full h-full flex flex-col py-2">
+                <h2 class="text-3xl font-bold text-center mb-4 text-gray-900" style="font-family: 'Inter'; letter-spacing: 0.5px; word-spacing: 3px;">Спосіб застосування</h2>
+                
+                <div class="grid grid-cols-4 gap-4 flex-1">
+                    <!-- Левый блок 1 - Дозування -->
+                    <div class="clinical-card bg-white p-4">
+                        <div class="w-16 h-16 bg-blue-600 rounded-xl mx-auto mb-2 flex items-center justify-center shadow-lg">
+                            <span class="text-3xl">💊</span>
+                        </div>
+                        <h3 class="text-base font-semibold text-gray-900 mb-2 text-center">Дозування</h3>
+                        <p class="text-gray-600 text-sm mb-3 text-center">1 капсула 2 рази на добу</p>
+                        
+                        <!-- Dosage visualization -->
+                        <div class="flex justify-center space-x-2 mt-3">
+                            <div class="text-center">
+                                <div class="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center mb-1">
+                                    <svg class="w-3 h-3 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M12 2L2 7V17C2 18.1 2.9 19 4 19H20C21.1 19 22 18.1 22 17V7L12 2Z"/>
+                                    </svg>
+                                </div>
+                                <span class="text-xs text-gray-600">Ранок</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-6 h-0.5 bg-gray-300"></div>
+                            </div>
+                            <div class="text-center">
+                                <div class="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center mb-1">
+                                    <svg class="w-3 h-3 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/>
+                                    </svg>
+                                </div>
+                                <span class="text-xs text-gray-600">Вечір</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Левый блок 2 - Тривалість -->
+                    <div class="clinical-card bg-white p-4">
+                        <div class="w-16 h-16 bg-emerald-600 rounded-xl mx-auto mb-2 flex items-center justify-center shadow-lg">
+                            <span class="text-3xl">⏳</span>
+                        </div>
+                        <h3 class="text-base font-semibold text-gray-900 mb-2 text-center">Тривалість</h3>
+                        <p class="text-gray-600 text-sm mb-3 text-center">Курс лікування 1-2 місяці</p>
+                        
+                        <!-- Duration visualization -->
+                        <div class="flex justify-center items-center space-x-2 mt-3">
+                            <span class="text-xs text-gray-600">30</span>
+                            <div class="w-10 bg-gray-200 rounded-full h-1">
+                                <div class="bg-emerald-600 h-1 rounded-full duration-bar" data-width="60" style="width: 0%; transition: width 2s ease-in-out;"></div>
+                            </div>
+                            <span class="text-xs text-gray-600">60 днів</span>
+                        </div>
+                    </div>
+
+                    <!-- Правый блок 1 - Режим прийому -->
+                    <div class="clinical-card bg-white p-4">
+                        <div class="w-16 h-16 bg-purple-600 rounded-xl mx-auto mb-2 flex items-center justify-center shadow-lg">
+                            <span class="text-3xl">📅</span>
+                        </div>
+                        <h3 class="text-base font-semibold text-gray-900 mb-2 text-center">Режим прийому</h3>
+                        <div class="space-y-2 mt-3">
+                            <!-- Morning -->
+                            <div class="flex items-center space-x-2">
+                                <div class="w-6 h-6 bg-yellow-100 rounded-full flex items-center justify-center">
+                                    <svg class="w-3 h-3 text-yellow-600" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="text-xs font-medium text-gray-900">8:00 - 9:00</div>
+                                    <div class="text-xs text-gray-600">Після сніданку</div>
+                                </div>
+                                <div class="w-3 h-3 bg-blue-600 rounded-full"></div>
+                            </div>
+                            
+                            <!-- Evening -->
+                            <div class="flex items-center space-x-2">
+                                <div class="w-6 h-6 bg-indigo-100 rounded-full flex items-center justify-center">
+                                    <svg class="w-3 h-3 text-indigo-600" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/>
+                                    </svg>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="text-xs font-medium text-gray-900">19:00 - 20:00</div>
+                                    <div class="text-xs text-gray-600">Після вечері</div>
+                                </div>
+                                <div class="w-3 h-3 bg-blue-600 rounded-full"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Правый блок 2 - Ефективність -->
+                    <div class="clinical-card bg-white p-4">
+                        <div class="w-16 h-16 bg-amber-600 rounded-xl mx-auto mb-2 flex items-center justify-center shadow-lg">
+                            <span class="text-3xl">📊</span>
+                        </div>
+                        <h3 class="text-base font-semibold text-gray-900 mb-2 text-center">Ефективність</h3>
+                        <div class="text-center mb-3">
+                            <div class="text-xl font-bold text-green-600">95%</div>
+                            <div class="text-xs text-gray-600">задоволених результатом</div>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-1">
+                            <div class="bg-green-600 h-1 rounded-full compliance-bar" data-width="95" style="width: 0%; transition: width 2s ease-in-out;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Нижний блок - Динаміка курсу + Упаковка -->
+                <div class="mt-4">
+                    <div class="grid grid-cols-2 gap-6">
+                        <!-- Ліва частина - Динаміка ефекту (зменшена ширина) -->
+                        <div class="clinical-card bg-white p-4">
+                            <h3 class="text-base font-semibold text-gray-900 mb-3 text-center">Динаміка ефекту протягом курсу</h3>
+                            <div class="grid grid-cols-3 gap-3">
+                                <div class="text-center">
+                                    <div class="w-14 h-14 bg-blue-100 rounded-full mx-auto mb-2 flex items-center justify-center">
+                                        <span class="text-xs text-blue-600 font-bold">1-2</span>
+                                    </div>
+                                    <div class="text-sm font-medium text-gray-900 mb-1">Тиждень 1-2</div>
+                                    <div class="text-xs text-gray-600 mb-2">Адаптація</div>
+                                    <div class="w-full bg-gray-200 rounded-full h-2">
+                                        <div class="bg-blue-600 h-2 rounded-full course-bar-1" data-width="25" style="width: 0%; transition: width 1.5s ease-in-out;"></div>
+                                    </div>
+                                    <div class="text-xs text-blue-600 font-bold mt-1">25%</div>
+                                </div>
+                                
+                                <div class="text-center">
+                                    <div class="w-14 h-14 bg-emerald-100 rounded-full mx-auto mb-2 flex items-center justify-center">
+                                        <span class="text-xs text-emerald-600 font-bold">3-4</span>
+                                    </div>
+                                    <div class="text-sm font-medium text-gray-900 mb-1">Тиждень 3-4</div>
+                                    <div class="text-xs text-gray-600 mb-2">Стабілізація</div>
+                                    <div class="w-full bg-gray-200 rounded-full h-2">
+                                        <div class="bg-emerald-600 h-2 rounded-full course-bar-2" data-width="50" style="width: 0%; transition: width 1.5s ease-in-out;"></div>
+                                    </div>
+                                    <div class="text-xs text-emerald-600 font-bold mt-1">50%</div>
+                                </div>
+                                
+                                <div class="text-center">
+                                    <div class="w-14 h-14 bg-purple-100 rounded-full mx-auto mb-2 flex items-center justify-center">
+                                        <span class="text-xs text-purple-600 font-bold">5-8</span>
+                                    </div>
+                                    <div class="text-sm font-medium text-gray-900 mb-1">Тиждень 5-8</div>
+                                    <div class="text-xs text-gray-600 mb-2">Максимум</div>
+                                    <div class="w-full bg-gray-200 rounded-full h-2">
+                                        <div class="bg-purple-600 h-2 rounded-full course-bar-3" data-width="100" style="width: 0%; transition: width 1.5s ease-in-out;"></div>
+                                    </div>
+                                    <div class="text-xs text-purple-600 font-bold mt-1">100%</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Права частина - Упаковка НейроКор без підписів -->
+                        <div class="clinical-card bg-white p-4 flex flex-col items-center justify-center">
+                            <img src="assets/CV69qllMsILlf6eTx1EiH.png" alt="NeuroCor Product" class="max-h-[280px] object-contain drop-shadow-xl">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Застереження -->
+        <div class="slide bg-gray-50 items-center justify-center" id="slide-6">
+            <!-- Логотип компанії -->
+            <div class="absolute bottom-4 right-4 z-10">
+                <img src="assets/FJGTxmY7nYxO2gRhDrP1X.png" alt="Boiko Clinic Logo" class="h-14 w-auto opacity-90 shadow-lg rounded-lg bg-white p-2">
+            </div>
+            <div class="max-w-5xl mx-auto px-4 w-full">
+                <h2 class="text-3xl font-bold text-center mb-6 text-gray-900" style="font-family: 'Inter'; letter-spacing: 0.5px; word-spacing: 3px;">Застереження до застосування</h2>
+                
+                <div class="space-y-3">
+                    <div class="clinical-card bg-white p-4 flex items-center space-x-3">
+                        <div class="w-16 h-16 bg-red-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg">
+                            <span class="text-3xl">⚠️</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-lg text-gray-900">Індивідуальна непереносимість</h3>
+                            <p class="text-gray-600 text-sm">Індивідуальна непереносимість компонентів препарату</p>
+                        </div>
+                    </div>
+                    
+                    <div class="clinical-card bg-white p-6 flex items-center space-x-4">
+                        <div class="w-16 h-16 bg-red-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg">
+                            <span class="text-3xl">👶</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-lg text-gray-900">Вікові обмеження</h3>
+                            <p class="text-gray-600 text-sm">Особи до 18 років</p>
+                        </div>
+                    </div>
+                    
+                    <div class="clinical-card bg-white p-6 flex items-center space-x-4">
+                        <div class="w-16 h-16 bg-red-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg">
+                            <span class="text-3xl">🤰</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-lg text-gray-900">Вагітність та лактація</h3>
+                            <p class="text-gray-600 text-sm">Вагітність та період лактації</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Переваги для пацієнта -->
+<div class="slide bg-gray-50 flex items-center justify-center px-4 py-6" id="slide-7" style="aspect-ratio: 16/9; overflow-y: auto; position: relative;">
+  
+  <!-- Логотип -->
+  <div class="absolute bottom-4 right-4 z-10">
+    <img src="assets/FJGTxmY7nYxO2gRhDrP1X.png" alt="Boiko Clinic Logo" class="h-14 w-auto opacity-90 shadow-lg rounded-lg bg-white p-2">
+  </div>
+
+  <div class="max-w-7xl w-full flex flex-col">
+    <!-- Заголовок -->
+    <h2 class="text-3xl font-bold text-center text-gray-900 mb-6" style="font-family: 'Inter'; letter-spacing: 0.5px;">Переваги для пацієнта</h2>
+
+    <!-- Сітка -->
+    <div class="grid grid-cols-4 gap-6 w-full">
+
+      <!-- Ліва частина: 6 карток 3x2 -->
+      <div class="col-span-3 grid grid-cols-3 gap-4">
+        
+        <!-- Картка -->
+        <div class="bg-white p-4 rounded-xl shadow-md flex flex-col items-center justify-center text-center h-full">
+          <div class="w-16 h-16 bg-emerald-600 rounded-xl mb-3 flex items-center justify-center text-white text-3xl shadow-lg">⚡</div>
+          <h3 class="font-semibold text-sm text-gray-900 mb-1">Швидкий ефект</h3>
+          <p class="text-xs text-gray-600 mb-2">Швидкий та зрозумілий ефект</p>
+          <div class="w-16 bg-gray-200 rounded-full h-1">
+            <div class="bg-emerald-600 h-1 rounded-full" style="width: 95%;"></div>
+          </div>
+        </div>
+
+        <div class="bg-white p-4 rounded-xl shadow-md flex flex-col items-center justify-center text-center h-full">
+          <div class="w-16 h-16 bg-blue-600 rounded-xl mb-3 flex items-center justify-center text-white text-3xl shadow-lg">🛡️</div>
+          <h3 class="font-semibold text-sm text-gray-900 mb-1">Безпечність</h3>
+          <p class="text-xs text-gray-600 mb-2">Безпечність застосування</p>
+          <div class="w-16 bg-gray-200 rounded-full h-1">
+            <div class="bg-blue-600 h-1 rounded-full" style="width: 98%;"></div>
+          </div>
+        </div>
+
+        <div class="bg-white p-4 rounded-xl shadow-md flex flex-col items-center justify-center text-center h-full">
+          <div class="w-16 h-16 bg-purple-600 rounded-xl mb-3 flex items-center justify-center text-white text-3xl shadow-lg">🧬</div>
+          <h3 class="font-semibold text-sm text-gray-900 mb-1">Фізіологічність</h3>
+          <p class="text-xs text-gray-600 mb-2">Природність дії препарату</p>
+          <div class="w-16 bg-gray-200 rounded-full h-1">
+            <div class="bg-purple-600 h-1 rounded-full" style="width: 92%;"></div>
+          </div>
+        </div>
+
+        <div class="bg-white p-4 rounded-xl shadow-md flex flex-col items-center justify-center text-center h-full">
+          <div class="w-16 h-16 bg-amber-600 rounded-xl mb-3 flex items-center justify-center text-white text-3xl shadow-lg">🕒</div>
+          <h3 class="font-semibold text-sm text-gray-900 mb-1">Зручність</h3>
+          <p class="text-xs text-gray-600 mb-2">Вписується в ритм життя</p>
+          <div class="w-16 bg-gray-200 rounded-full h-1">
+            <div class="bg-amber-600 h-1 rounded-full" style="width: 89%;"></div>
+          </div>
+        </div>
+
+        <div class="bg-white p-4 rounded-xl shadow-md flex flex-col items-center justify-center text-center h-full">
+          <div class="w-16 h-16 bg-indigo-600 rounded-xl mb-3 flex items-center justify-center text-white text-3xl shadow-lg">💎</div>
+          <h3 class="font-semibold text-sm text-gray-900 mb-1">Доступність</h3>
+          <p class="text-xs text-gray-600 mb-2">Оптимальне співвідношення ціна/якість</p>
+          <div class="w-16 bg-gray-200 rounded-full h-1">
+            <div class="bg-indigo-600 h-1 rounded-full" style="width: 94%;"></div>
+          </div>
+        </div>
+
+        <div class="bg-white p-4 rounded-xl shadow-md flex flex-col items-center justify-center text-center h-full">
+          <div class="w-16 h-16 bg-pink-600 rounded-xl mb-3 flex items-center justify-center text-white text-3xl shadow-lg">💡</div>
+          <h3 class="font-semibold text-sm text-gray-900 mb-1">Покращення самопочуття</h3>
+          <p class="text-xs text-gray-600 mb-2">Комплексна дія на організм</p>
+          <div class="w-16 bg-gray-200 rounded-full h-1">
+            <div class="bg-pink-600 h-1 rounded-full" style="width: 90%;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Права частина: вертикальний блок -->
+      <div class="flex flex-col gap-4 justify-between">
+        
+        <!-- Метр задоволеності -->
+        <div class="bg-white p-4 rounded-xl shadow-md text-center">
+          <h3 class="text-sm font-semibold text-gray-900 mb-2">Задоволеність</h3>
+          <div class="text-3xl font-bold text-emerald-600 mb-1">98.7%</div>
+          <p class="text-xs text-gray-600 mb-3">Результати опитування</p>
+          <div class="space-y-1 text-xs text-left">
+            <div class="flex justify-between">
+              <span>Відмінно</span><span class="font-bold text-emerald-600">78%</span>
+            </div>
+            <div class="flex justify-between">
+              <span>Добре</span><span class="font-bold text-blue-600">21%</span>
+            </div>
+            <div class="flex justify-between">
+              <span>Задовільно</span><span class="font-bold text-amber-600">1%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Топ переваг -->
+        <div class="bg-white p-4 rounded-xl shadow-md text-sm">
+          <h3 class="text-sm font-semibold text-gray-900 mb-3 text-center">Топ переваг</h3>
+          <div class="space-y-2">
+            <div class="flex items-center gap-2">
+              <div class="w-4 h-4 bg-emerald-600 text-white text-xs font-bold flex items-center justify-center rounded-full">1</div>
+              <div class="flex-1">
+                <p class="text-xs">Безпечність</p>
+                <div class="w-full h-1 bg-gray-200 rounded-full">
+                  <div class="h-1 bg-emerald-600 rounded-full" style="width: 98%"></div>
+                </div>
+              </div>
+            </div>
+            <div class="flex items-center gap-2">
+              <div class="w-4 h-4 bg-blue-600 text-white text-xs font-bold flex items-center justify-center rounded-full">2</div>
+              <div class="flex-1">
+                <p class="text-xs">Швидкий ефект</p>
+                <div class="w-full h-1 bg-gray-200 rounded-full">
+                  <div class="h-1 bg-blue-600 rounded-full" style="width: 95%"></div>
+                </div>
+              </div>
+            </div>
+            <div class="flex items-center gap-2">
+              <div class="w-4 h-4 bg-purple-600 text-white text-xs font-bold flex items-center justify-center rounded-full">3</div>
+              <div class="flex-1">
+                <p class="text-xs">Доступність</p>
+                <div class="w-full h-1 bg-gray-200 rounded-full">
+                  <div class="h-1 bg-purple-600 rounded-full" style="width: 94%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Якість життя -->
+        <div class="bg-white p-4 rounded-xl shadow-md text-center">
+          <h3 class="text-sm font-semibold text-gray-900 mb-2">Якість життя</h3>
+          <div class="text-2xl font-bold text-blue-600 mb-1">+87%</div>
+          <p class="text-xs text-gray-600 mb-2">Пацієнти відмічають покращення</p>
+          <div class="grid grid-cols-2 gap-2 text-xs">
+            <div><span class="font-bold text-emerald-600">+32%</span><br>Енергія</div>
+            <div><span class="font-bold text-purple-600">+28%</span><br>Пам'ять</div>
+            <div><span class="font-bold text-blue-600">+35%</span><br>Настрій</div>
+            <div><span class="font-bold text-amber-600">+25%</span><br>Сон</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="slide bg-gray-50 flex items-center justify-center min-h-screen" id="slide-8">
+    <div class="absolute bottom-4 right-4 z-10">
+        <img src="assets/FJGTxmY7nYxO2gRhDrP1X.png" alt="Boiko Clinic Logo" class="h-14 w-auto opacity-90 shadow-lg rounded-lg bg-white p-2">
+    </div>
+    <div class="max-w-7xl mx-auto px-4 w-full h-full flex flex-col py-4"> <h2 class="text-3xl font-bold text-center mb-6 text-gray-900" style="font-family: 'Inter'; letter-spacing: 0.5px; word-spacing: 3px;">Переваги для лікаря</h2>
+
+        <div class="grid grid-cols-2 gap-6 flex-1"> <div class="grid grid-cols-2 gap-4 h-full"> <div class="clinical-card bg-white p-4 flex flex-col justify-between items-center text-center h-full shadow-lg border border-gray-100 hover:shadow-2xl hover:border-blue-200 transition-all duration-500">
+                    <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl mb-2 flex items-center justify-center shadow-xl transform hover:rotate-6 hover:scale-110 transition-all duration-300"> <span class="text-3xl">🧃</span> </div>
+                    <div class="flex-1 flex flex-col justify-center">
+                        <h3 class="font-bold text-sm text-gray-900 mb-2 leading-tight">Комплексний підхід</h3> <p class="text-gray-600 text-xs text-center leading-relaxed mb-2">Комплекс ефектів в одній капсулі - широкий спектр застосування</p> </div>
+                    <div class="w-full">
+                        <div class="w-full bg-gray-200 rounded-full h-2 mb-1 shadow-inner"> <div class="bg-gradient-to-r from-blue-500 to-blue-600 h-2 rounded-full doctor-bar-1 shadow-sm" data-width="98" style="width: 0%; transition: width 2s ease-in-out;"></div>
+                        </div>
+                        <div class="text-center">
+                            <span class="text-base font-bold text-blue-600">98%</span> <span class="text-xs text-gray-500 ml-1">ефективність</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="clinical-card bg-white p-4 flex flex-col justify-between items-center text-center h-full shadow-lg border border-gray-100 hover:shadow-2xl hover:border-emerald-200 transition-all duration-500">
+                    <div class="w-16 h-16 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl mb-2 flex items-center justify-center shadow-xl transform hover:rotate-6 hover:scale-110 transition-all duration-300">
+                        <span class="text-3xl">🤝</span>
+                    </div>
+                    <div class="flex-1 flex flex-col justify-center">
+                        <h3 class="font-bold text-base text-gray-900 mb-2 leading-tight">Підвищення комплаєнсу</h3>
+                        <p class="text-gray-600 text-sm text-center leading-relaxed mb-2">Збільшення комплаєнсу пацієнта до лікування</p>
+                    </div>
+                    <div class="w-full">
+                        <div class="w-full bg-gray-200 rounded-full h-2 mb-1 shadow-inner">
+                            <div class="bg-gradient-to-r from-emerald-500 to-emerald-600 h-2 rounded-full doctor-bar-2 shadow-sm" data-width="94" style="width: 0%; transition: width 2s ease-in-out;"></div>
+                        </div>
+                        <div class="text-center">
+                            <span class="text-base font-bold text-emerald-600">94%</span>
+                            <span class="text-xs text-gray-500 ml-1">покращення</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="clinical-card bg-white p-4 flex flex-col justify-between items-center text-center h-full shadow-lg border border-gray-100 hover:shadow-2xl hover:border-purple-200 transition-all duration-500">
+                    <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl mb-2 flex items-center justify-center shadow-xl transform hover:rotate-6 hover:scale-110 transition-all duration-300">
+                        <span class="text-3xl">📉</span>
+                    </div>
+                    <div class="flex-1 flex flex-col justify-center">
+                        <h3 class="font-bold text-base text-gray-900 mb-2 leading-tight">Зменшення навантаження</h3>
+                        <p class="text-gray-600 text-sm text-center leading-relaxed mb-2">Зменшення медикаментозного навантаження на пацієнта</p>
+                    </div>
+                    <div class="w-full">
+                        <div class="w-full bg-gray-200 rounded-full h-2 mb-1 shadow-inner">
+                            <div class="bg-gradient-to-r from-purple-500 to-purple-600 h-2 rounded-full doctor-bar-3 shadow-sm" data-width="91" style="width: 0%; transition: width 2s ease-in-out;"></div>
+                        </div>
+                        <div class="text-center">
+                            <span class="text-base font-bold text-purple-600">91%</span>
+                            <span class="text-xs text-gray-500 ml-1">зменшення</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="clinical-card bg-white p-4 flex flex-col justify-between items-center text-center h-full shadow-lg border border-gray-100 hover:shadow-2xl hover:border-amber-200 transition-all duration-500">
+                    <div class="w-16 h-16 bg-gradient-to-br from-amber-500 to-amber-600 rounded-2xl mb-2 flex items-center justify-center shadow-xl transform hover:rotate-6 hover:scale-110 transition-all duration-300">
+                        <span class="text-3xl">🎯</span>
+                    </div>
+                    <div class="flex-1 flex flex-col justify-center">
+                        <h3 class="font-bold text-base text-gray-900 mb-2 leading-tight">Ефективне дозування</h3>
+                        <p class="text-gray-600 text-sm text-center leading-relaxed mb-2">Оптимальна доза та зручний режим прийому</p>
+                    </div>
+                    <div class="w-full">
+                        <div class="w-full bg-gray-200 rounded-full h-2 mb-1 shadow-inner">
+                            <div class="bg-gradient-to-r from-amber-500 to-amber-600 h-2 rounded-full doctor-bar-4 shadow-sm" data-width="89" style="width: 0%; transition: width 2s ease-in-out;"></div>
+                        </div>
+                        <div class="text-center">
+                            <span class="text-base font-bold text-amber-600">89%</span>
+                            <span class="text-xs text-gray-500 ml-1">точність</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-col justify-center space-y-4"> <div class="clinical-card bg-white p-4 flex-1 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 flex flex-col"> <h3 class="font-semibold text-base text-gray-900 mb-2 text-center">Робочий процес лікаря</h3> <div class="relative flex-1 flex items-center justify-center">
+                        <svg class="w-full h-auto" viewBox="0 0 320 180" preserveAspectRatio="xMidYMid meet">
+                            <circle cx="160" cy="90" r="70" fill="#f8fafc" opacity="0.6" stroke="#e2e8f0" stroke-width="1"/> <circle cx="160" cy="90" r="45" fill="#f1f5f9" opacity="0.8" stroke="#cbd5e1" stroke-width="1"/> <circle cx="160" cy="90" r="25" fill="#3b82f6" opacity="0.1"> <animate attributeName="r" values="25;30;25" dur="3s" repeatCount="indefinite"/>
+                            </circle>
+                            <circle cx="160" cy="90" r="20" fill="#3b82f6" stroke="#1e40af" stroke-width="2"/> <g transform="translate(160,90) scale(1.0)"> <circle cx="0" cy="-10" r="5" fill="white" stroke="#1e40af" stroke-width="1"/>
+                                <rect x="-2.5" y="-5" width="5" height="10" fill="white" rx="1" stroke="#1e40af" stroke-width="1"/>
+                                <path d="M-7,-2 L-12,-10 M7,-2 L12,-10" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                                <path d="M-2.5,5 L-7,18 M2.5,5 L7,18" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                                <circle cx="0" cy="0" r="1.5" fill="none" stroke="white" stroke-width="0.8"/>
+                            </g>
+
+                            <g class="benefit-nodes">
+                                <circle cx="160" cy="25" r="8" fill="#10b981" class="pulse-node" stroke="white" stroke-width="2"> <animate attributeName="opacity" values="0.7;1;0.7" dur="2s" repeatCount="indefinite"/>
+                                </circle>
+                                <text x="160" y="10" text-anchor="middle" class="text-xs fill-gray-800 font-semibold">Менше ліків</text> <circle cx="215" cy="50" r="8" fill="#8b5cf6" class="pulse-node" stroke="white" stroke-width="2"> <animate attributeName="opacity" values="0.7;1;0.7" dur="2.2s" repeatCount="indefinite"/>
+                                </circle>
+                                <text x="215" y="35" text-anchor="middle" class="text-xs fill-gray-800 font-semibold">Кращий</text>
+                                <text x="215" y="48" text-anchor="middle" class="text-xs fill-gray-800 font-semibold">комплаєнс</text>
+
+                                <circle cx="215" cy="130" r="8" fill="#f59e0b" class="pulse-node" stroke="white" stroke-width="2"> <animate attributeName="opacity" values="0.7;1;0.7" dur="1.8s" repeatCount="indefinite"/>
+                                </circle>
+                                <text x="215" y="155" text-anchor="middle" class="text-xs fill-gray-800 font-semibold">Менше</text>
+                                <text x="215" y="168" text-anchor="middle" class="text-xs fill-gray-800 font-semibold">госпіталізацій</text>
+
+                                <circle cx="160" cy="155" r="8" fill="#ef4444" class="pulse-node" stroke="white" stroke-width="2"> <animate attributeName="opacity" values="0.7;1;0.7" dur="2.4s" repeatCount="indefinite"/>
+                                </circle>
+                                <text x="160" y="180" text-anchor="middle" class="text-xs fill-gray-800 font-semibold">Контроль</text>
+
+                                <circle cx="105" cy="130" r="8" fill="#06b6d4" class="pulse-node" stroke="white" stroke-width="2"> <animate attributeName="opacity" values="0.7;1;0.7" dur="2.6s" repeatCount="indefinite"/>
+                                </circle>
+                                <text x="105" y="155" text-anchor="middle" class="text-xs fill-gray-800 font-semibold">Підтримка</text>
+                                <text x="105" y="168" text-anchor="middle" class="text-xs fill-gray-800 font-semibold">після стаціонару</text>
+
+                                <circle cx="105" cy="50" r="8" fill="#f97316" class="pulse-node" stroke="white" stroke-width="2"> <animate attributeName="opacity" values="0.7;1;0.7" dur="2s" repeatCount="indefinite"/>
+                                </circle>
+                                <text x="105" y="35" text-anchor="middle" class="text-xs fill-gray-800 font-semibold">Ефективне</text>
+                                <text x="105" y="48" text-anchor="middle" class="text-xs fill-gray-800 font-semibold">дозування</text>
+                            </g>
+
+                            <g stroke="#6b7280" stroke-width="1.5" opacity="0.7"> <line x1="160" y1="80" x2="160" y2="35">
+                                    <animate attributeName="opacity" values="0.4;1;0.4" dur="2s" repeatCount="indefinite"/>
+                                </line>
+                                <line x1="178" y1="80" x2="207" y2="58">
+                                    <animate attributeName="opacity" values="0.4;1;0.4" dur="2.2s" repeatCount="indefinite"/>
+                                </line>
+                                <line x1="178" y1="100" x2="207" y2="122">
+                                    <animate attributeName="opacity" values="0.4;1;0.4" dur="1.8s" repeatCount="indefinite"/>
+                                </line>
+                                <line x1="160" y1="100" x2="160" y2="145">
+                                    <animate attributeName="opacity" values="0.4;1;0.4" dur="2.4s" repeatCount="indefinite"/>
+                                </line>
+                                <line x1="142" y1="100" x2="113" y2="122">
+                                    <animate attributeName="opacity" values="0.4;1;0.4" dur="2.6s" repeatCount="indefinite"/>
+                                </line>
+                                <line x1="142" y1="80" x2="113" y2="58">
+                                    <animate attributeName="opacity" values="0.4;1;0.4" dur="2s" repeatCount="indefinite"/>
+                                </line>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="clinical-card bg-white p-3"> <h3 class="font-semibold text-sm text-gray-900 mb-2 text-center">Підсумкова ефективність</h3> <div class="text-center">
+                        <div class="text-xl font-bold text-blue-600 counter" data-target="96.5">0</div> <div class="text-xs text-gray-600 mb-1">% задоволених лікарів</div> <div class="w-full bg-gray-200 rounded-full h-1.5"> <div class="bg-gradient-to-r from-blue-600 to-emerald-600 h-1.5 rounded-full doctor-satisfaction-bar" data-width="96.5" style="width: 0%; transition: width 2s ease-in-out;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-6 grid grid-cols-3 gap-4"> <div class="clinical-card bg-gradient-to-br from-emerald-50 to-green-100 p-4 border-2 border-emerald-200 shadow-lg hover:shadow-2xl hover:border-emerald-300 transition-all duration-500 flex items-center justify-between"> <div class="flex items-center space-x-3 flex-1"> <div class="w-14 h-14 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl flex items-center justify-center shadow-xl transform hover:rotate-12 hover:scale-110 transition-all duration-300"> <span class="text-2xl">♻️</span> </div>
+                    <div class="flex-1">
+                        <h3 class="font-bold text-sm text-gray-900 mb-1">Підтримуюча терапія</h3> <p class="text-gray-600 text-xs leading-relaxed">Адекватна підтримуюча терапія після стаціонарного лікування</p> </div>
+                </div>
+                <div class="text-center ml-3"> <div class="text-xl font-bold text-emerald-600">92%</div> <div class="text-xs text-gray-500">ефективність</div>
+                </div>
+            </div>
+
+            <div class="clinical-card bg-gradient-to-br from-red-50 to-pink-100 p-4 border-2 border-red-200 shadow-lg hover:shadow-2xl hover:border-red-300 transition-all duration-500 flex items-center justify-between">
+                <div class="flex items-center space-x-3 flex-1">
+                    <div class="w-16 h-16 bg-gradient-to-br from-red-500 to-red-600 rounded-2xl flex items-center justify-center shadow-xl transform hover:rotate-12 hover:scale-110 transition-all duration-300">
+                        <span class="text-3xl">🏥</span>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="font-bold text-sm text-gray-900 mb-1">Відтермінування госпіталізації</h3>
+                        <p class="text-gray-600 text-xs leading-relaxed">Зменшення потреби в стаціонарному лікуванні</p>
+                    </div>
+                </div>
+                <div class="text-center ml-3">
+                    <div class="text-xl font-bold text-red-600">-34%</div>
+                    <div class="text-xs text-gray-500">госпіталізацій</div>
+                </div>
+            </div>
+
+            <div class="clinical-card bg-gradient-to-br from-indigo-50 to-blue-100 p-4 border-2 border-indigo-200 shadow-lg hover:shadow-2xl hover:border-indigo-300 transition-all duration-500 flex items-center justify-between">
+                <div class="flex items-center space-x-3 flex-1">
+                    <div class="w-16 h-16 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-2xl flex items-center justify-center shadow-xl transform hover:rotate-12 hover:scale-110 transition-all duration-300">
+                        <span class="text-3xl">📊</span>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="font-bold text-sm text-gray-900 mb-1">Об'єктивний контроль</h3>
+                        <p class="text-gray-600 text-xs leading-relaxed">Можливість перевірки результатів об'єктивними даними</p>
+                    </div>
+                </div>
+                <div class="text-center ml-3">
+                    <div class="text-xl font-bold text-indigo-600">98%</div>
+                    <div class="text-xs text-gray-500">точність</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+        <!-- Slide 9: Інфографіка ефективності -->
+        <div class="slide bg-gray-50 items-center justify-center" id="slide-9">
+            <!-- Логотип компанії -->
+            <div class="absolute bottom-4 right-4 z-10">
+                <img src="assets/FJGTxmY7nYxO2gRhDrP1X.png" alt="Boiko Clinic Logo" class="h-14 w-auto opacity-90 shadow-lg rounded-lg bg-white p-2">
+            </div>
+            <div class="max-w-7xl mx-auto px-2 w-full h-full flex flex-col py-1">
+                <h2 class="text-2xl font-bold text-center mb-2 text-gray-900" style="font-family: 'Inter'; letter-spacing: 0.5px;">Клінічна ефективність НейроКор</h2>
+                
+                <div class="grid grid-cols-4 gap-2 flex-1">
+                    <!-- Блок 1 - Ефективність лікування (зменшений) -->
+                    <div class="clinical-card bg-white p-1">
+                        <div class="w-16 h-16 bg-blue-600 rounded-lg mx-auto mb-1 flex items-center justify-center shadow-lg">
+                            <span class="text-3xl">📊</span>
+                        </div>
+                        <h3 class="font-semibold text-sm text-gray-900 mb-1 text-center">Ефективність</h3>
+                        <div class="space-y-1">
+                            <div class="text-center">
+                                <span class="text-blue-600 font-bold text-sm">94%</span>
+                                <div class="text-xs text-gray-600">Когнітивні</div>
+                            </div>
+                            <div class="text-center">
+                                <span class="text-emerald-600 font-bold text-sm">90%</span>
+                                <div class="text-xs text-gray-600">Кровообіг</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Блок 2 - Статистика пацієнтів (зменшений) -->
+                    <div class="clinical-card bg-white p-1">
+                        <div class="w-16 h-16 bg-emerald-600 rounded-lg mx-auto mb-1 flex items-center justify-center shadow-lg">
+                            <span class="text-3xl">👥</span>
+                        </div>
+                        <h3 class="font-semibold text-sm text-gray-900 mb-1 text-center">Статистика</h3>
+                        <div class="space-y-1">
+                            <div class="text-center">
+                                <div class="text-sm font-bold text-blue-600 counter" data-target="15340">0</div>
+                                <div class="text-xs text-gray-600">Пацієнтів</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-sm font-bold text-emerald-600 counter" data-target="98.7">0</div>
+                                <div class="text-xs text-gray-600">% задов.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Блок 3-4 - Активність мозку (2 блоки) -->
+                    <div class="col-span-2 clinical-card bg-gradient-to-br from-indigo-50 to-purple-50 p-3 h-full border-2 border-purple-200">
+                        <div class="w-16 h-16 bg-gradient-to-br from-purple-600 to-indigo-600 rounded-xl mx-auto mb-3 flex items-center justify-center shadow-xl relative">
+                            <span class="text-2xl animate-pulse">🧠</span>
+                            <!-- Энергетическое сияние вокруг иконки -->
+                            <div class="absolute inset-0 rounded-xl bg-gradient-to-br from-purple-600 to-indigo-600 opacity-30 animate-ping"></div>
+                        </div>
+                        <h3 class="font-semibold text-base text-gray-900 mb-3 text-center">Активність мозку</h3>
+                        <div class="relative w-full h-32 bg-gradient-to-br from-gray-900 to-indigo-900 rounded-xl overflow-hidden shadow-inner border-2 border-indigo-300">
+                            <svg class="w-full h-full" viewBox="0 0 240 128">
+                                <!-- Enhanced brain outline with gradient -->
+                                <defs>
+                                    <linearGradient id="brainGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#8b5cf6;stop-opacity:0.8"/>
+                                        <stop offset="50%" style="stop-color:#3b82f6;stop-opacity:0.9"/>
+                                        <stop offset="100%" style="stop-color:#10b981;stop-opacity:0.8"/>
+                                    </linearGradient>
+                                    <filter id="glow">
+                                        <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                                        <feMerge> 
+                                            <feMergeNode in="coloredBlur"/>
+                                            <feMergeNode in="SourceGraphic"/>
+                                        </feMerge>
+                                    </filter>
+                                </defs>
+                                
+                                <!-- Enhanced brain outline -->
+                                <path class="brain-outline" d="M40 64 Q40 32 80 32 Q120 26 160 32 Q200 32 200 64 Q200 96 160 96 Q120 102 80 96 Q40 96 40 64" 
+                                      fill="url(#brainGradient)" stroke="#a855f7" stroke-width="3" opacity="0.7" filter="url(#glow)">
+                                    <animate attributeName="opacity" values="0.5;0.9;0.5" dur="3s" repeatCount="indefinite"/>
+                                </path>
+                                
+                                <!-- Enhanced activity waves with stronger effects -->
+                                <g class="brain-waves">
+                                    <path class="wave-1" d="M56 64 Q72 51 88 64 Q104 77 120 64 Q136 51 152 64 Q168 77 184 64" 
+                                          fill="none" stroke="#00ffff" stroke-width="3" opacity="1" filter="url(#glow)">
+                                        <animate attributeName="stroke-dasharray" values="0 200;100 100;0 200" dur="2s" repeatCount="indefinite"/>
+                                        <animate attributeName="opacity" values="0.6;1;0.6" dur="2s" repeatCount="indefinite"/>
+                                    </path>
+                                    <path class="wave-2" d="M56 70 Q72 58 88 70 Q104 83 120 70 Q136 58 152 70 Q168 83 184 70" 
+                                          fill="none" stroke="#ff00ff" stroke-width="2.5" opacity="0.9" filter="url(#glow)">
+                                        <animate attributeName="stroke-dasharray" values="0 200;80 120;0 200" dur="1.8s" repeatCount="indefinite"/>
+                                        <animate attributeName="opacity" values="0.5;1;0.5" dur="1.8s" repeatCount="indefinite"/>
+                                    </path>
+                                    <path class="wave-3" d="M56 58 Q72 45 88 58 Q104 70 120 58 Q136 45 152 58 Q168 70 184 58" 
+                                          fill="none" stroke="#ffff00" stroke-width="2" opacity="0.8" filter="url(#glow)">
+                                        <animate attributeName="stroke-dasharray" values="0 200;120 80;0 200" dur="2.2s" repeatCount="indefinite"/>
+                                        <animate attributeName="opacity" values="0.4;1;0.4" dur="2.2s" repeatCount="indefinite"/>
+                                    </path>
+                                </g>
+                                
+                                <!-- Enhanced activity dots with powerful glow -->
+                                <g class="activity-dots">
+                                    <circle cx="80" cy="51" r="4" fill="#00ffff" class="pulse-dot" filter="url(#glow)">
+                                        <animate attributeName="r" values="3;8;3" dur="2s" repeatCount="indefinite"/>
+                                        <animate attributeName="opacity" values="0.6;1;0.6" dur="2s" repeatCount="indefinite"/>
+                                    </circle>
+                                    <circle cx="120" cy="45" r="3" fill="#ff00ff" class="pulse-dot" filter="url(#glow)">
+                                        <animate attributeName="r" values="2;7;2" dur="1.5s" repeatCount="indefinite"/>
+                                        <animate attributeName="opacity" values="0.6;1;0.6" dur="1.5s" repeatCount="indefinite"/>
+                                    </circle>
+                                    <circle cx="160" cy="54" r="5" fill="#ffff00" class="pulse-dot" filter="url(#glow)">
+                                        <animate attributeName="r" values="4;9;4" dur="2.5s" repeatCount="indefinite"/>
+                                        <animate attributeName="opacity" values="0.6;1;0.6" dur="2.5s" repeatCount="indefinite"/>
+                                    </circle>
+                                    
+                                    <!-- Дополнительные яркие точки активности -->
+                                    <circle cx="100" cy="35" r="2" fill="#00ff00" filter="url(#glow)">
+                                        <animate attributeName="r" values="1;5;1" dur="1.8s" repeatCount="indefinite"/>
+                                        <animate attributeName="opacity" values="0.4;1;0.4" dur="1.8s" repeatCount="indefinite"/>
+                                    </circle>
+                                    <circle cx="140" cy="35" r="3" fill="#ff6600" filter="url(#glow)">
+                                        <animate attributeName="r" values="2;6;2" dur="2.3s" repeatCount="indefinite"/>
+                                        <animate attributeName="opacity" values="0.5;1;0.5" dur="2.3s" repeatCount="indefinite"/>
+                                    </circle>
+                                    <circle cx="95" cy="75" r="2" fill="#6600ff" filter="url(#glow)">
+                                        <animate attributeName="r" values="1;4;1" dur="1.9s" repeatCount="indefinite"/>
+                                        <animate attributeName="opacity" values="0.3;1;0.3" dur="1.9s" repeatCount="indefinite"/>
+                                    </circle>
+                                    <circle cx="145" cy="75" r="3" fill="#ff0066" filter="url(#glow)">
+                                        <animate attributeName="r" values="2;7;2" dur="2.1s" repeatCount="indefinite"/>
+                                        <animate attributeName="opacity" values="0.4;1;0.4" dur="2.1s" repeatCount="indefinite"/>
+                                    </circle>
+                                </g>
+                                
+                                <!-- Энергетические волны вокруг мозга -->
+                                <g class="energy-waves">
+                                    <circle cx="120" cy="64" r="50" fill="none" stroke="#00ffff" stroke-width="1" opacity="0.3">
+                                        <animate attributeName="r" values="30;70;30" dur="4s" repeatCount="indefinite"/>
+                                        <animate attributeName="opacity" values="0.6;0;0.6" dur="4s" repeatCount="indefinite"/>
+                                    </circle>
+                                    <circle cx="120" cy="64" r="40" fill="none" stroke="#ff00ff" stroke-width="1" opacity="0.4">
+                                        <animate attributeName="r" values="25;60;25" dur="3.5s" repeatCount="indefinite"/>
+                                        <animate attributeName="opacity" values="0.7;0;0.7" dur="3.5s" repeatCount="indefinite"/>
+                                    </circle>
+                                    <circle cx="120" cy="64" r="35" fill="none" stroke="#ffff00" stroke-width="1" opacity="0.5">
+                                        <animate attributeName="r" values="20;55;20" dur="3s" repeatCount="indefinite"/>
+                                        <animate attributeName="opacity" values="0.8;0;0.8" dur="3s" repeatCount="indefinite"/>
+                                    </circle>
+                                </g>
+                            </svg>
+                            
+                            <!-- Enhanced activity indicators -->
+                            <div class="absolute bottom-2 left-2 text-xs text-white bg-black bg-opacity-50 rounded px-2 py-1">
+                                <div class="flex items-center space-x-2">
+                                    <div class="flex space-x-1">
+                                        <div class="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
+                                        <div class="w-2 h-2 bg-purple-400 rounded-full animate-pulse" style="animation-delay: 0.3s"></div>
+                                        <div class="w-2 h-2 bg-yellow-400 rounded-full animate-pulse" style="animation-delay: 0.6s"></div>
+                                    </div>
+                                    <span class="text-xs font-semibold text-cyan-300">Нейронна активність ↗️</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Статистика активности в реальном времени -->
+                            <div class="absolute top-2 right-2 text-xs text-white bg-black bg-opacity-50 rounded px-2 py-1">
+                                <div class="text-center">
+                                    <div class="text-sm font-bold text-green-400 counter" data-target="147">0</div>
+                                    <div class="text-xs text-green-300">Гц активність</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Останній блок займе 2 позицію в наступному ряду -->
+                </div>
+
+                <div class="grid grid-cols-4 gap-2 mt-2">
+                    <!-- Блок 4 - Динаміка лікування (зменшений) -->
+                    <div class="clinical-card bg-white p-1 h-full">
+                        <div class="w-16 h-16 bg-amber-600 rounded-lg mx-auto mb-1 flex items-center justify-center shadow-lg">
+                            <span class="text-3xl">⏱️</span>
+                        </div>
+                        <h3 class="font-semibold text-sm text-gray-900 mb-1 text-center">Динаміка</h3>
+                        <div class="space-y-2">
+                            <div class="flex items-center space-x-2">
+                                <div class="w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center text-white text-xs font-bold">1</div>
+                                <div class="flex-1">
+                                    <div class="font-medium text-gray-900 text-xs">1-7 днів</div>
+                                    <div class="text-xs text-gray-600">Початок</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <div class="w-6 h-6 bg-emerald-600 rounded-full flex items-center justify-center text-white text-xs font-bold">2</div>
+                                <div class="flex-1">
+                                    <div class="font-medium text-gray-900 text-xs">7-14 днів</div>
+                                    <div class="text-xs text-gray-600">Стабілізація</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <div class="w-6 h-6 bg-purple-600 rounded-full flex items-center justify-center text-white text-xs font-bold">3</div>
+                                <div class="flex-1">
+                                    <div class="font-medium text-gray-900 text-xs">14-30 днів</div>
+                                    <div class="text-xs text-gray-600">Максимум</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Блок 5 - Показники у стовпчик -->
+                    <div class="flex flex-col space-y-1 h-full">
+                        <!-- Блок 1 - Загальна ефективність -->
+                        <div class="clinical-card bg-gradient-to-br from-blue-50 to-blue-100 p-2 border-2 border-blue-200 flex-1">
+                            <div class="flex items-center space-x-2">
+                                <div class="w-6 h-6 bg-blue-600 rounded-lg flex items-center justify-center shadow-lg">
+                                    <span class="text-sm">✅</span>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="text-sm font-bold text-blue-600 counter" data-target="96.3">0</div>
+                                    <div class="text-xs text-gray-600">% ефективн.</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Блок 2 - Днів до ефекту -->
+                        <div class="clinical-card bg-gradient-to-br from-emerald-50 to-emerald-100 p-2 border-2 border-emerald-200 flex-1">
+                            <div class="flex items-center space-x-2">
+                                <div class="w-6 h-6 bg-emerald-600 rounded-lg flex items-center justify-center shadow-lg">
+                                    <span class="text-sm">⚡</span>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="text-sm font-bold text-emerald-600 counter" data-target="14">0</div>
+                                    <div class="text-xs text-gray-600">днів</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Блок 3 - Точність -->
+                        <div class="clinical-card bg-gradient-to-br from-purple-50 to-purple-100 p-2 border-2 border-purple-200 flex-1">
+                            <div class="flex items-center space-x-2">
+                                <div class="w-6 h-6 bg-purple-600 rounded-lg flex items-center justify-center shadow-lg">
+                                    <span class="text-sm">🎯</span>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="text-sm font-bold text-purple-600 counter" data-target="92.8">0</div>
+                                    <div class="text-xs text-gray-600">% точн.</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Блок 4 - Повторні курси -->
+                        <div class="clinical-card bg-gradient-to-br from-amber-50 to-amber-100 p-2 border-2 border-amber-200 flex-1">
+                            <div class="flex items-center space-x-2">
+                                <div class="w-6 h-6 bg-amber-600 rounded-lg flex items-center justify-center shadow-lg">
+                                    <span class="text-sm">🔄</span>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="text-sm font-bold text-amber-600 counter" data-target="85.7">0</div>
+                                    <div class="text-xs text-gray-600">% повт.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Блок 6-7 - Коробка НейроКор (2 блоки) -->
+                    <div class="col-span-2 clinical-card bg-white p-3 h-full flex flex-col items-center justify-center">
+                        <img src="assets/CV69qllMsILlf6eTx1EiH.png" alt="NeuroCor Product" class="max-h-56 object-contain drop-shadow-2xl">
+                    </div>
+                    
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation - Left side -->
+        <div class="fixed left-4 top-1/2 transform -translate-y-1/2 z-50">
+            <button onclick="prevSlide()" class="bg-white text-gray-700 p-3 rounded-full border border-gray-300 font-medium shadow-lg hover:bg-gray-50 transition hover:scale-110">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Navigation - Right side -->
+        <div class="fixed right-4 top-1/2 transform -translate-y-1/2 z-50">
+            <button onclick="nextSlide()" class="bg-blue-600 text-white p-3 rounded-full hover:bg-blue-700 transition font-medium shadow-lg hover:scale-110">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Slide counter - Top right -->
+        <div class="fixed top-4 right-4 z-50">
+            <span id="slide-counter" class="bg-gray-900 text-white px-4 py-2 rounded-lg font-medium shadow-lg">
+                1 / 9
+            </span>
+        </div>
+
+        <!-- Slide indicators - Top center -->
+        <div class="fixed top-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-50">
+            <div class="indicator active" onclick="goToSlide(1)" style="width: 10px; height: 10px;"></div>
+            <div class="indicator" onclick="goToSlide(2)" style="width: 10px; height: 10px;"></div>
+            <div class="indicator" onclick="goToSlide(3)" style="width: 10px; height: 10px;"></div>
+            <div class="indicator" onclick="goToSlide(4)" style="width: 10px; height: 10px;"></div>
+            <div class="indicator" onclick="goToSlide(5)" style="width: 10px; height: 10px;"></div>
+            <div class="indicator" onclick="goToSlide(6)" style="width: 10px; height: 10px;"></div>
+            <div class="indicator" onclick="goToSlide(7)" style="width: 10px; height: 10px;"></div>
+            <div class="indicator" onclick="goToSlide(8)" style="width: 10px; height: 10px;"></div>
+            <div class="indicator" onclick="goToSlide(9)" style="width: 10px; height: 10px;"></div>
+        </div>
+        <div class="fixed left-4 top-1/2 transform -translate-y-1/2 z-50">
+            <button onclick="prevSlide()" class="bg-white text-gray-700 p-3 rounded-full border border-gray-300 font-medium shadow-lg hover:bg-gray-50 transition hover:scale-110">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Navigation - Right side -->
+        <div class="fixed right-4 top-1/2 transform -translate-y-1/2 z-50">
+            <button onclick="nextSlide()" class="bg-blue-600 text-white p-3 rounded-full hover:bg-blue-700 transition font-medium shadow-lg hover:scale-110">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Slide counter - Top right -->
+        <div class="fixed top-4 right-4 z-50">
+            <span id="slide-counter" class="bg-gray-900 text-white px-4 py-2 rounded-lg font-medium shadow-lg">
+                1 / 9
+            </span>
+        </div>
+
+        <!-- Slide indicators - Top center -->
+        <div class="fixed top-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-50">
+            <div class="indicator active" onclick="goToSlide(1)" style="width: 10px; height: 10px;"></div>
+            <div class="indicator" onclick="goToSlide(2)" style="width: 10px; height: 10px;"></div>
+            <div class="indicator" onclick="goToSlide(3)" style="width: 10px; height: 10px;"></div>
+            <div class="indicator" onclick="goToSlide(4)" style="width: 10px; height: 10px;"></div>
+            <div class="indicator" onclick="goToSlide(5)" style="width: 10px; height: 10px;"></div>
+            <div class="indicator" onclick="goToSlide(6)" style="width: 10px; height: 10px;"></div>
+            <div class="indicator" onclick="goToSlide(7)" style="width: 10px; height: 10px;"></div>
+            <div class="indicator" onclick="goToSlide(8)" style="width: 10px; height: 10px;"></div>
+            <div class="indicator" onclick="goToSlide(9)" style="width: 10px; height: 10px;"></div>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 9;
+
+        function showSlide(n) {
+            console.log('🔄 Showing slide:', n, 'Current:', currentSlide);
+            
+            const slides = document.querySelectorAll('.slide');
+            const indicators = document.querySelectorAll('.indicator');
+            const counter = document.getElementById('slide-counter');
+            
+            console.log('📋 Found', slides.length, 'slides and', indicators.length, 'indicators');
+            
+            // Validate slide number and set currentSlide
+            if (n > totalSlides) {
+                console.log('⚠️ Slide number too high, wrapping to slide 1');
+                currentSlide = 1;
+            } else if (n < 1) {
+                console.log('⚠️ Slide number too low, wrapping to last slide');
+                currentSlide = totalSlides;
+            } else {
+                currentSlide = n;
+            }
+            
+            console.log('🎯 Will show slide:', currentSlide);
+            
+            // Hide all slides first
+            slides.forEach((slide) => {
+                slide.classList.remove('active');
+                slide.style.display = 'none';
+            });
+            
+            // Reset all indicators
+            indicators.forEach((indicator) => {
+                indicator.classList.remove('active');
+                indicator.style.transform = 'scale(1)';
+                indicator.style.boxShadow = 'none';
+            });
+            
+            // Show target slide with enhanced error handling
+            const targetSlide = document.getElementById('slide-' + currentSlide);
+            if (targetSlide) {
+                console.log('✅ Found target slide:', 'slide-' + currentSlide);
+                targetSlide.style.display = 'flex';
+                targetSlide.classList.add('active');
+                
+                // Add a small delay to ensure DOM is ready, then animate
+                requestAnimationFrame(() => {
+                    setTimeout(() => {
+                        console.log('🎨 Starting animations for slide', currentSlide);
+                        animateSlideElements(currentSlide);
+                    }, 50);
+                });
+            } else {
+                console.error('❌ Slide not found:', 'slide-' + currentSlide);
+                console.error('💡 Available slides:', Array.from(slides).map(s => s.id));
+                return;
+            }
+            
+            // Update indicator
+            const activeIndicator = indicators[currentSlide - 1];
+            if (activeIndicator) {
+                activeIndicator.classList.add('active');
+                activeIndicator.style.transform = 'scale(1.2)';
+                activeIndicator.style.boxShadow = '0 3px 10px rgba(59, 130, 246, 0.4)';
+            }
+            
+            // Update counter
+            if (counter) {
+                counter.textContent = currentSlide + ' / ' + totalSlides;
+            }
+        }
+
+        function nextSlide() {
+            console.log('➡️ Next slide clicked. Current:', currentSlide);
+            if (currentSlide < totalSlides) {
+                showSlide(currentSlide + 1);
+            } else {
+                console.log('🔄 At last slide, wrapping to first');
+                showSlide(1);
+            }
+        }
+
+        function prevSlide() {
+            console.log('⬅️ Previous slide clicked. Current:', currentSlide);
+            if (currentSlide > 1) {
+                showSlide(currentSlide - 1);
+            } else {
+                console.log('🔄 At first slide, wrapping to last');
+                showSlide(totalSlides);
+            }
+        }
+
+        function goToSlide(n) {
+            console.log('🎯 Go to slide clicked:', n, 'from current:', currentSlide);
+            if (n >= 1 && n <= totalSlides) {
+                showSlide(n);
+            } else {
+                console.error('❌ Invalid slide number:', n);
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'ArrowRight' || event.key === ' ') {
+                nextSlide();
+            } else if (event.key === 'ArrowLeft') {
+                prevSlide();
+            }
+        });
+
+        // Create particles
+        function createParticles() {
+            const particleContainer = document.getElementById('particles');
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 12 + 's';
+                particle.style.animationDuration = (Math.random() * 4 + 8) + 's';
+                particleContainer.appendChild(particle);
+            }
+        }
+
+        // Create subtle floating elements
+        function createFloatingElements() {
+            const container = document.getElementById('matrix');
+            // Remove matrix effect for cleaner look
+        }
+
+        // Dynamic data updates
+        function updateStats() {
+            const statusElements = document.querySelectorAll('[data-stat]');
+            statusElements.forEach(el => {
+                const currentValue = parseFloat(el.textContent);
+                const variation = (Math.random() - 0.5) * 0.2;
+                const newValue = (currentValue + variation).toFixed(1);
+                el.textContent = newValue + '%';
+            });
+        }
+
+        // Enhanced slide transitions
+        function enhanceSlideTransitions() {
+            const slides = document.querySelectorAll('.slide');
+            slides.forEach((slide, index) => {
+                slide.style.transition = 'all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                
+                // Add staggered animation to cards when slide becomes active
+                const cards = slide.querySelectorAll('.clinical-card, .clinical-badge');
+                cards.forEach((card, cardIndex) => {
+                    card.classList.add('staggered-fade');
+                    card.style.animationDelay = (cardIndex * 0.1) + 's';
+                });
+            });
+        }
+        
+        // Animate elements on slide change
+        function animateSlideElements(slideNumber) {
+            const currentSlide = document.getElementById('slide-' + slideNumber);
+            if (!currentSlide) return;
+            
+            // Reset animations
+            const animatedElements = currentSlide.querySelectorAll('.clinical-card, .clinical-badge, h2, h3');
+            animatedElements.forEach((el, index) => {
+                el.style.animation = 'none';
+                el.offsetHeight; // Trigger reflow
+                el.style.animation = `fadeIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards`;
+                el.style.animationDelay = (index * 0.1) + 's';
+                el.style.opacity = '0';
+                
+                setTimeout(() => {
+                    el.style.opacity = '1';
+                }, (index * 100) + 100);
+            });
+            
+            // Special animations for specific slides
+            if (slideNumber === 1) {
+                const logo = currentSlide.querySelector('img');
+                if (logo) {
+                    logo.style.animation = 'bounceIn 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards';
+                }
+            }
+            
+            if (slideNumber === 2) {
+                const productCards = currentSlide.querySelectorAll('.clinical-card');
+                productCards.forEach((card, index) => {
+                    if (index % 2 === 0) {
+                        card.classList.add('slide-in-left');
+                    } else {
+                        card.classList.add('slide-in-right');
+                    }
+                    card.style.animationDelay = (index * 0.2) + 's';
+                });
+            }
+        }
+        
+        // Enhanced particle system
+        function createEnhancedParticles() {
+            const particleContainer = document.getElementById('particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (Math.random() * 6 + 10) + 's';
+                
+                // Random sizes
+                const size = Math.random() * 3 + 2;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                
+                particleContainer.appendChild(particle);
+            }
+        }
+        
+        // Button animations
+        function enhanceButtonAnimations() {
+            const buttons = document.querySelectorAll('button');
+            buttons.forEach(button => {
+                button.style.transition = 'all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+                
+                button.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-2px) scale(1.05)';
+                    this.style.boxShadow = '0 10px 25px rgba(0, 0, 0, 0.2)';
+                });
+                
+                button.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                    this.style.boxShadow = '0 1px 3px rgba(0, 0, 0, 0.1)';
+                });
+                
+                button.addEventListener('click', function() {
+                    this.style.transform = 'translateY(1px) scale(0.98)';
+                    setTimeout(() => {
+                        this.style.transform = 'translateY(-2px) scale(1.05)';
+                    }, 150);
+                });
+            });
+        }
+        
+        // Enhanced indicator animations
+        function enhanceIndicators() {
+            const indicators = document.querySelectorAll('.indicator');
+            indicators.forEach((indicator, index) => {
+                indicator.style.transition = 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+                
+                indicator.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.5) translateY(-3px)';
+                    this.style.boxShadow = '0 5px 15px rgba(59, 130, 246, 0.4)';
+                });
+                
+                indicator.addEventListener('mouseleave', function() {
+                    if (!this.classList.contains('active')) {
+                        this.style.transform = 'scale(1) translateY(0)';
+                        this.style.boxShadow = 'none';
+                    }
+                });
+            });
+        }
+        
+        // Animate counters
+        function animateCounters() {
+            const counters = document.querySelectorAll('.counter');
+            counters.forEach(counter => {
+                const target = parseFloat(counter.getAttribute('data-target'));
+                if (!target) return; // Skip if no target
+                
+                const increment = target / 100;
+                let current = 0;
+                
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        counter.textContent = target;
+                        clearInterval(timer);
+                    } else {
+                        counter.textContent = Math.ceil(current);
+                    }
+                }, 20);
+            });
+        }
+        
+        // Animate progress bars
+        function animateProgressBars() {
+            const progressBars = document.querySelectorAll('.progress-bar');
+            progressBars.forEach((bar, index) => {
+                setTimeout(() => {
+                    const width = bar.getAttribute('data-width');
+                    bar.style.width = width + '%';
+                }, index * 200);
+            });
+        }
+        
+        // Enhanced slide elements animation
+        function animateSlideElements(slideNumber) {
+            const currentSlide = document.getElementById('slide-' + slideNumber);
+            if (!currentSlide) {
+                console.error('Cannot animate elements for slide:', slideNumber);
+                return;
+            }
+            
+            console.log('Animating elements for slide:', slideNumber);
+            
+            // Reset and animate basic elements
+            const animatedElements = currentSlide.querySelectorAll('.clinical-card, .clinical-badge, h2, h3');
+            animatedElements.forEach((el, index) => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    el.style.transition = 'all 0.6s ease-out';
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+            
+            // Special animations for component bars on slide 2
+            if (slideNumber === 2) {
+                setTimeout(() => {
+                    const componentBars = currentSlide.querySelectorAll('[class*="component-bar-"]');
+                    componentBars.forEach((bar, index) => {
+                        setTimeout(() => {
+                            const width = bar.getAttribute('data-width');
+                            if (width) {
+                                bar.style.width = width + '%';
+                            }
+                        }, index * 200 + 500);
+                    });
+                }, 300);
+            }
+            
+            // Animate effect bars on slide 3
+            if (slideNumber === 3) {
+                setTimeout(() => {
+                    const effectBars = currentSlide.querySelectorAll('.effect-bar');
+                    effectBars.forEach((bar, index) => {
+                        setTimeout(() => {
+                            const width = bar.getAttribute('data-width');
+                            if (width) {
+                                bar.style.width = width + '%';
+                            }
+                        }, index * 150 + 400);
+                    });
+                    
+                    const cardioBar = currentSlide.querySelector('.cardio-bar');
+                    if (cardioBar) {
+                        setTimeout(() => {
+                            const width = cardioBar.getAttribute('data-width');
+                            if (width) {
+                                cardioBar.style.width = width + '%';
+                            }
+                        }, 1000);
+                    }
+                }, 400);
+            }
+            
+            // Animate treatment stats on slide 4
+            if (slideNumber === 4) {
+                setTimeout(() => {
+                    const treatmentBar = currentSlide.querySelector('.treatment-bar');
+                    const comorbidBar = currentSlide.querySelector('.comorbid-bar');
+                    
+                    if (treatmentBar) {
+                        const width = treatmentBar.getAttribute('data-width');
+                        if (width) {
+                            treatmentBar.style.width = width + '%';
+                        }
+                    }
+                    
+                    if (comorbidBar) {
+                        setTimeout(() => {
+                            const width = comorbidBar.getAttribute('data-width');
+                            if (width) {
+                                comorbidBar.style.width = width + '%';
+                            }
+                        }, 600);
+                    }
+                    
+                    // Animate counter for slide 4
+                    const slideCounters = currentSlide.querySelectorAll('.counter');
+                    slideCounters.forEach(counter => {
+                        const target = parseFloat(counter.getAttribute('data-target'));
+                        if (!target) return;
+                        
+                        let current = 0;
+                        const increment = target / 60;
+                        
+                        const timer = setInterval(() => {
+                            current += increment;
+                            if (current >= target) {
+                                counter.textContent = target;
+                                clearInterval(timer);
+                            } else {
+                                counter.textContent = Math.ceil(current);
+                            }
+                        }, 30);
+                    });
+                }, 600);
+            }
+            
+            // Animate course progress on slide 5
+            if (slideNumber === 5) {
+                setTimeout(() => {
+                    const allBars = [
+                        '.duration-bar',
+                        '.course-bar-1',
+                        '.course-bar-2', 
+                        '.course-bar-3',
+                        '.compliance-bar'
+                    ];
+                    
+                    allBars.forEach((selector, index) => {
+                        const bar = currentSlide.querySelector(selector);
+                        if (bar) {
+                            setTimeout(() => {
+                                const width = bar.getAttribute('data-width');
+                                if (width) {
+                                    bar.style.width = width + '%';
+                                }
+                            }, index * 300);
+                        }
+                    });
+                }, 500);
+            }
+            
+            // Animate advantages on slide 7
+            if (slideNumber === 7) {
+                setTimeout(() => {
+                    const advantageBars = currentSlide.querySelectorAll('[class*="advantage-bar-"]');
+                    advantageBars.forEach((bar, index) => {
+                        setTimeout(() => {
+                            const width = bar.getAttribute('data-width');
+                            if (width) {
+                                bar.style.width = width + '%';
+                            }
+                        }, index * 200);
+                    });
+                    
+                    // Animate counters for slide 7
+                    const slideCounters = currentSlide.querySelectorAll('.counter');
+                    slideCounters.forEach(counter => {
+                        const target = parseFloat(counter.getAttribute('data-target'));
+                        if (!target) return;
+                        
+                        let current = 0;
+                        const increment = target / 80;
+                        
+                        const timer = setInterval(() => {
+                            current += increment;
+                            if (current >= target) {
+                                counter.textContent = target;
+                                clearInterval(timer);
+                            } else {
+                                counter.textContent = Math.ceil(current);
+                            }
+                        }, 25);
+                    });
+                }, 600);
+            }
+            
+            // Animate doctor bars and counters on slide 8
+            if (slideNumber === 8) {
+                setTimeout(() => {
+                    const doctorBars = currentSlide.querySelectorAll('[class*="doctor-bar-"], .doctor-satisfaction-bar');
+                    doctorBars.forEach((bar, index) => {
+                        setTimeout(() => {
+                            const width = bar.getAttribute('data-width');
+                            if (width) {
+                                bar.style.width = width + '%';
+                            }
+                        }, index * 300);
+                    });
+                    
+                    // Animate counters for slide 8
+                    const slideCounters = currentSlide.querySelectorAll('.counter');
+                    slideCounters.forEach(counter => {
+                        const target = parseFloat(counter.getAttribute('data-target'));
+                        if (!target) return;
+                        
+                        let current = 0;
+                        const increment = target / 80;
+                        
+                        const timer = setInterval(() => {
+                            current += increment;
+                            if (current >= target) {
+                                if (target % 1 !== 0) {
+                                    counter.textContent = target.toFixed(1);
+                                } else {
+                                    counter.textContent = target;
+                                }
+                                clearInterval(timer);
+                            } else {
+                                if (target % 1 !== 0 && current > target * 0.8) {
+                                    counter.textContent = current.toFixed(1);
+                                } else {
+                                    counter.textContent = Math.ceil(current);
+                                }
+                            }
+                        }, 25);
+                    });
+                }, 800);
+            }
+            
+            // Animate clinical data on slide 9
+            if (slideNumber === 9) {
+                setTimeout(() => {
+                    const progressBars = currentSlide.querySelectorAll('.progress-bar');
+                    progressBars.forEach((bar, index) => {
+                        setTimeout(() => {
+                            const width = bar.getAttribute('data-width');
+                            if (width) {
+                                bar.style.width = width + '%';
+                            }
+                        }, index * 250);
+                    });
+                    
+                    // Animate counters for slide 9
+                    const slideCounters = currentSlide.querySelectorAll('.counter');
+                    slideCounters.forEach(counter => {
+                        const target = parseFloat(counter.getAttribute('data-target'));
+                        if (!target) return;
+                        
+                        let current = 0;
+                        const increment = target / 100;
+                        
+                        const timer = setInterval(() => {
+                            current += increment;
+                            if (current >= target) {
+                                if (target % 1 !== 0) {
+                                    counter.textContent = target.toFixed(1);
+                                } else {
+                                    counter.textContent = target;
+                                }
+                                clearInterval(timer);
+                            } else {
+                                if (target % 1 !== 0 && current > target * 0.8) {
+                                    counter.textContent = current.toFixed(1);
+                                } else {
+                                    counter.textContent = Math.ceil(current);
+                                }
+                            }
+                        }, 20);
+                    });
+                }, 700);
+            }
+        }
+        
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 DOM loaded, initializing enhanced presentation');
+            console.log('📊 Total slides:', totalSlides);
+            
+            // Check if all slides exist and log their status
+            let slidesFound = 0;
+            for (let i = 1; i <= totalSlides; i++) {
+                const slide = document.getElementById('slide-' + i);
+                if (slide) slidesFound++;
+                console.log(`📄 Slide ${i} exists:`, !!slide);
+            }
+            console.log(`✅ Found ${slidesFound}/${totalSlides} slides`);
+            
+            // Initialize currentSlide properly
+            currentSlide = 1;
+            
+            // Initialize enhanced features
+            createEnhancedParticles();
+            enhanceSlideTransitions();
+            enhanceButtonAnimations();
+            enhanceIndicators();
+            
+            // Show first slide with proper initialization
+            console.log('🎯 Initializing first slide...');
+            showSlide(1);
+            
+            // Double-check first slide visibility
+            setTimeout(() => {
+                const firstSlide = document.getElementById('slide-1');
+                if (firstSlide) {
+                    firstSlide.style.display = 'flex';
+                    firstSlide.classList.add('active');
+                    console.log('✅ First slide is now visible');
+                } else {
+                    console.error('❌ First slide not found during initialization');
+                }
+            }, 100);
+            
+            console.log('🎉 Presentation initialization complete!');
+        });
+    </script>
+</body>
+</html>
