@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>NeuroCor — Презентація (Mobile-first)</title>
+  <title>NeuroCor — Презентація (Responsive + Animations)</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     /* --------------------------------------------------
-       BASE TYPOGRAPHY & LAYOUT
+       BASE
     -------------------------------------------------- */
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
     :root { --gap: 16px; }
@@ -18,114 +18,124 @@
       letter-spacing: .2px; word-spacing: 1px; overflow: hidden;
     }
 
-    /* Slide container */
-    .w-screen-h {
-      width: 100%;
-      height: 100svh; /* safe small viewport height on mobile */
-      position: relative;
-    }
+    .w-screen-h { width: 100%; height: 100svh; position: relative; }
 
     .slide {
       display: none; position: absolute; inset: 0; width: 100%; height: 100%;
       padding: 16px; box-sizing: border-box; background: #f8fafc;
-      overflow: hidden; /* default: no page scroll */
-      align-items: center; justify-content: center; flex-direction: column;
+      overflow: hidden; align-items: center; justify-content: center; flex-direction: column;
     }
-    .slide.active { display: flex !important; background: #f8fafc; }
+    .slide.active { display: flex !important; }
 
-    /* Card look used throughout */
+    /* Cards */
     .clinical-card {
       background: #fff; border: 1px solid #e5e7eb; border-radius: 14px;
-      box-shadow: 0 4px 14px rgba(0,0,0,.06); transition: transform .25s ease, box-shadow .25s ease;
+      box-shadow: 0 4px 14px rgba(0,0,0,.06);
+      transition: transform .25s ease, box-shadow .25s ease, filter .25s ease;
     }
     .clinical-card:hover { transform: translateY(-4px); box-shadow: 0 10px 25px rgba(0,0,0,.10); }
 
-    .indicator { width: 10px; height: 10px; border-radius: 9999px; background: rgba(255,255,255,.5); transition: all .25s ease; cursor:pointer; }
-    .indicator.active { background: #fff; transform: scale(1.25); }
+    .indicator { width: 10px; height: 10px; border-radius: 9999px; background: rgba(255,255,255,.55); transition: all .25s ease; cursor: pointer; }
+    .indicator.active { background: #fff; transform: scale(1.25); box-shadow: 0 3px 10px rgba(59,130,246,.4); }
 
-    /* Logo badge (fixed on each slide) */
     .logo-badge { position: absolute; right: 12px; bottom: 12px; z-index: 10; }
     .logo-img { height: 44px; width: auto; background: #fff; padding: 6px; border-radius: 10px; border: 1px solid #e5e7eb; box-shadow: 0 8px 18px rgba(0,0,0,.12); }
 
-    /* NAV */
-    .nav-btn { width: 44px; height: 44px; border-radius: 9999px; display: grid; place-items: center; box-shadow: 0 8px 18px rgba(0,0,0,.15); }
+    /* --------------------------------------------------
+       ANIMATIONS (вернула недостающие)
+    -------------------------------------------------- */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(40px) scale(.98); filter: blur(6px); }
+      to   { opacity: 1; transform: translateY(0)    scale(1);   filter: blur(0); }
+    }
+    @keyframes slideInLeft {
+      from { opacity: 0; transform: translateX(-80px) scale(.96) rotateY(10deg); filter: blur(4px); }
+      to   { opacity: 1; transform: translateX(0)     scale(1)    rotateY(0deg);  filter: blur(0); }
+    }
+    @keyframes slideInRight {
+      from { opacity: 0; transform: translateX(80px) scale(.96) rotateY(-10deg); filter: blur(4px); }
+      to   { opacity: 1; transform: translateX(0)    scale(1)    rotateY(0deg);   filter: blur(0); }
+    }
+    @keyframes bounceIn {
+      0% { opacity: 0; transform: scale(.1) rotate(-180deg) translateY(-100px); }
+      60% { opacity: 1; transform: scale(1.2) rotate(10deg); }
+      80% { transform: scale(.96) rotate(-3deg); }
+      100% { transform: scale(1) rotate(0); }
+    }
+    .staggered-fade { animation: fadeIn .75s cubic-bezier(.25,.46,.45,.94) both; }
+    .slide-in-left  { animation: slideInLeft .6s cubic-bezier(.25,.46,.45,.94) both; }
+    .slide-in-right { animation: slideInRight .6s cubic-bezier(.25,.46,.45,.94) both; }
+
+    /* Optional: respect reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; }
+    }
 
     /* --------------------------------------------------
-       RESPONSIVE: MOBILE-FIRST OVERRIDES
+       NAVIGATION (фиксированные элементы, без дубликатов)
+    -------------------------------------------------- */
+    .nav-side {
+      position: fixed; top: 50%; transform: translateY(-50%);
+      z-index: 50; display: grid; place-items: center;
+    }
+    .nav-side.left  { left: 12px; }
+    .nav-side.right { right: 12px; }
+    .nav-btn { width: 44px; height: 44px; border-radius: 9999px; display: grid; place-items: center; box-shadow: 0 8px 18px rgba(0,0,0,.15); }
+
+    .nav-top-center {
+      position: fixed; top: max(12px, env(safe-area-inset-top)); left: 50%;
+      transform: translateX(-50%); z-index: 50; display: flex; gap: 8px; padding: 4px 8px;
+      background: rgba(17,24,39,.6); border-radius: 9999px; backdrop-filter: saturate(140%) blur(6px);
+    }
+    .nav-top-right {
+      position: fixed; top: max(12px, env(safe-area-inset-top)); right: 12px; z-index: 50;
+    }
+    #slide-counter {
+      background: #111827; color: #fff; padding: 6px 10px; border-radius: 8px; box-shadow: 0 8px 18px rgba(0,0,0,.15);
+      font-weight: 600; font-size: 14px;
+    }
+
+    /* --------------------------------------------------
+       RESPONSIVE
     -------------------------------------------------- */
     @media (max-width: 768px) {
       :root { --gap: 12px; }
       .slide { padding: 12px; }
+      /* Переносим стрелки вниз к углам на мобиле */
+      .nav-side { top: auto; bottom: max(16px, env(safe-area-inset-bottom)); transform: none; }
+      .nav-side.left  { left: max(12px, env(safe-area-inset-left)); }
+      .nav-side.right { right: max(12px, env(safe-area-inset-right)); }
+      /* Индикаторы и счетчик вниз по центру */
+      .nav-top-center {
+        top: auto; bottom: calc(max(16px, env(safe-area-inset-bottom)) + 0px);
+      }
+      .nav-top-right {
+        top: auto; bottom: calc(max(16px, env(safe-area-inset-bottom)) + 46px); right: 12px;
+      }
 
-      /* Reduce heavy backgrounds for performance (если есть такие элементы в DOM) */
-      .particle-bg, .matrix-rain { display: none !important; }
-
-      /* Любая Tailwind-сетка 2/3/4 колонок становится в 1 колонку */
+      /* Гриды в одну колонку по умолчанию */
       .grid.grid-cols-2, .grid.grid-cols-3, .grid.grid-cols-4 { grid-template-columns: 1fr !important; gap: 12px !important; }
       .col-span-2, .col-span-3, .col-span-4 { grid-column: auto / span 1 !important; }
 
-      /* Typography downscale */
+      /* Типографика */
       h2.text-3xl, .text-3xl { font-size: 1.325rem !important; line-height: 1.25 !important; }
       h2.text-2xl, .text-2xl { font-size: 1.125rem !important; }
       h3.text-base, .text-base { font-size: .95rem !important; }
       .text-sm { font-size: .85rem !important; }
       .text-xs { font-size: .78rem !important; }
 
-      /* Icons & paddings shrink inside cards */
-      .clinical-card .p-6 { padding: 12px !important; }
-      .clinical-card .p-5 { padding: 12px !important; }
-      .clinical-card .p-4 { padding: 10px !important; }
-      .clinical-card .p-3 { padding: 8px !important; }
-      .clinical-card .w-16, .clinical-card .h-16 { width: 48px !important; height: 48px !important; }
-
-      /* Ensure media never overflows */
-      img, svg { max-width: 100%; height: auto; object-fit: contain; }
-
-      /* Controls stick to bottom for thumbs-reach */
-      .controls-wrap {
-        position: fixed; inset-inline: 0; bottom: 10px;
-        display: flex; align-items: center; justify-content: center;
-        z-index: 50; pointer-events: none;
-        padding-bottom: env(safe-area-inset-bottom);
-      }
-      .controls-inner {
-        pointer-events: all; display: flex; gap: 14px; align-items: center;
-        background: rgba(17,24,39,.7); padding: 8px 12px calc(8px + env(safe-area-inset-bottom)) 12px;
-        border-radius: 9999px; backdrop-filter: saturate(140%) blur(6px);
-      }
-      #slide-counter { background: transparent !important; padding: 0 !important; box-shadow: none !important; }
-
-      /* When content is still tall, allow inner scroll but keep page fixed */
+      /* Внутренний скролл там, где контент высокий */
       .scrollable { overflow-y: auto; -webkit-overflow-scrolling: touch; }
     }
 
-    /* Very narrow phones */
-    @media (max-width: 360px) {
-      .logo-img { height: 40px; }
-      .nav-btn { width: 40px; height: 40px; }
-      .clinical-card .w-16, .clinical-card .h-16 { width: 44px !important; height: 44px !important; }
-      .clinical-card .w-20, .clinical-card .h-20 { width: 56px !important; height: 56px !important; }
-    }
-
-    /* Desktop enhancements */
     @media (min-width: 769px) {
       .slide { padding: 18px 24px; }
-      .controls-wrap { position: fixed; right: 16px; top: 16px; z-index: 50; inset-inline: auto; bottom: auto; }
-      .controls-inner { padding: 8px 12px; }
-    }
-
-    /* Reduced motion respect */
-    @media (prefers-reduced-motion: reduce) {
-      * { animation: none !important; transition: none !important; }
     }
   </style>
 </head>
 <body class="bg-gray-50">
   <div class="w-screen-h relative">
-
-    <!-- ============================================= -->
-    <!-- Slide 1: Logo -->
-    <!-- ============================================= -->
+    <!-- ============ SLIDE 1 ============ -->
     <section id="slide-1" class="slide active bg-white">
       <div class="text-center w-full max-w-xl mx-auto px-6">
         <img src="assets/FJGTxmY7nYxO2gRhDrP1X.png" alt="Boiko Clinic Logo" class="w-full max-w-xs sm:max-w-md mx-auto" style="max-height: 320px; object-fit: contain;"/>
@@ -135,18 +145,14 @@
       </div>
     </section>
 
-    <!-- ============================================= -->
-    <!-- Slide 2: Склад препарату -->
-    <!-- ============================================= -->
+    <!-- ============ SLIDE 2 ============ -->
     <section id="slide-2" class="slide bg-gray-50">
       <div class="w-full max-w-6xl mx-auto px-3 scrollable">
         <h2 class="text-3xl font-bold text-center mb-3 text-gray-900">Склад препарату НейроКор</h2>
-
         <div class="grid grid-cols-2 gap-4">
-          <!-- LEFT: cards -->
+          <!-- LEFT -->
           <div class="grid grid-cols-2 gap-3">
-            <!-- Card 1 -->
-            <div class="clinical-card p-4">
+            <div class="clinical-card p-4"><!-- 1 -->
               <div class="flex items-center gap-3 mb-2">
                 <div class="w-16 h-16 bg-blue-600 rounded-xl grid place-items-center text-white shadow-lg">💪</div>
                 <div class="flex-1">
@@ -157,8 +163,7 @@
               <div class="text-xs text-blue-600 bg-blue-50 px-3 py-1.5 rounded-lg border border-blue-200 font-mono text-center mb-1">C₇H₁₅NO₃</div>
               <div class="text-xs text-gray-600 bg-gray-100 px-3 py-1.5 rounded-lg text-center font-medium">Енергетичний обмін</div>
             </div>
-            <!-- Card 2 -->
-            <div class="clinical-card p-4">
+            <div class="clinical-card p-4"><!-- 2 -->
               <div class="flex items-center gap-3 mb-2">
                 <div class="w-16 h-16 bg-emerald-600 rounded-xl grid place-items-center text-white shadow-lg">🩸</div>
                 <div class="flex-1">
@@ -169,8 +174,7 @@
               <div class="text-xs text-emerald-600 bg-emerald-50 px-2 py-1 rounded-lg border border-emerald-200 font-mono text-center mb-1">C₆H₁₄N₄O₂</div>
               <div class="text-xs text-gray-600 bg-gray-100 px-2 py-1 rounded-lg text-center font-medium">Покращує кровообіг</div>
             </div>
-            <!-- Card 3 -->
-            <div class="clinical-card p-4">
+            <div class="clinical-card p-4"><!-- 3 -->
               <div class="flex items-center gap-3 mb-2">
                 <div class="w-16 h-16 bg-pink-500 rounded-xl grid place-items-center text-white shadow-lg">🌺</div>
                 <div class="flex-1">
@@ -181,8 +185,7 @@
               <div class="text-xs text-purple-600 bg-purple-50 px-2 py-1 rounded-lg border border-purple-200 font-mono text-center mb-1">Вінкамін</div>
               <div class="text-xs text-gray-600 bg-gray-100 px-2 py-1 rounded-lg text-center font-medium">Мозковий кровообіг</div>
             </div>
-            <!-- Card 4 -->
-            <div class="clinical-card p-4">
+            <div class="clinical-card p-4"><!-- 4 -->
               <div class="flex items-center gap-3 mb-2">
                 <div class="w-16 h-16 bg-amber-600 rounded-xl grid place-items-center text-white shadow-lg">🍃</div>
                 <div class="flex-1">
@@ -193,9 +196,8 @@
               <div class="text-xs text-amber-600 bg-amber-50 px-2 py-1 rounded-lg border border-amber-200 font-mono text-center mb-1">Флавоноїди</div>
               <div class="text-xs text-gray-600 bg-gray-100 px-2 py-1 rounded-lg text-center font-medium">Пам'ять та концентрація</div>
             </div>
-            <!-- Centered Card 5 -->
             <div class="col-span-2">
-              <div class="clinical-card p-4">
+              <div class="clinical-card p-4"><!-- 5 -->
                 <div class="flex items-center gap-3 mb-2">
                   <div class="w-20 h-20 bg-red-600 rounded-xl grid place-items-center text-white shadow-lg">❤️</div>
                   <div class="flex-1">
@@ -208,8 +210,7 @@
               </div>
             </div>
           </div>
-
-          <!-- RIGHT: box only -->
+          <!-- RIGHT: box -->
           <div class="flex items-center justify-center">
             <img src="assets/wuKM9Y6TQskEe1Rj7YTWN.png" alt="NeuroCor Product" class="max-h-[360px] object-contain drop-shadow-2xl" />
           </div>
@@ -218,14 +219,12 @@
       <div class="logo-badge"><img src="assets/FJGTxmY7nYxO2gRhDrP1X.png" class="logo-img" alt=""/></div>
     </section>
 
-    <!-- ============================================= -->
-    <!-- Slide 3: Ефекти -->
-    <!-- ============================================= -->
+    <!-- ============ SLIDE 3 ============ -->
     <section id="slide-3" class="slide bg-gray-50">
       <div class="w-full max-w-6xl mx-auto px-3 scrollable">
         <h2 class="text-3xl font-bold text-center mb-3 text-gray-900">Ефекти НейроКор</h2>
         <div class="grid grid-cols-3 gap-4">
-          <!-- Left column -->
+          <!-- Left -->
           <div class="grid grid-cols-1 gap-3">
             <div class="clinical-card p-4">
               <div class="flex items-center gap-3">
@@ -256,7 +255,7 @@
             </div>
           </div>
 
-          <!-- Center column: target diagram (kept responsive) -->
+          <!-- Center: target diagram -->
           <div class="clinical-card p-4">
             <h3 class="font-semibold text-base text-gray-900 mb-3 text-center">Цілі впливу НейроКор</h3>
             <div class="relative flex items-center justify-center">
@@ -268,10 +267,7 @@
                   </radialGradient>
                   <filter id="targetGlow">
                     <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
-                    <feMerge>
-                      <feMergeNode in="coloredBlur"/>
-                      <feMergeNode in="SourceGraphic"/>
-                    </feMerge>
+                    <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
                   </filter>
                 </defs>
                 <circle cx="250" cy="140" r="120" fill="url(#bodyGlow)" opacity="0.6"></circle>
@@ -308,22 +304,13 @@
               </svg>
             </div>
             <div class="grid grid-cols-3 gap-2 text-xs text-gray-700 mt-3">
-              <div class="text-center">
-                <div class="w-4 h-4 bg-purple-600 rounded-full mx-auto mb-1"></div>
-                <span class="font-bold text-gray-900 text-xs">ЦНС</span>
-              </div>
-              <div class="text-center">
-                <div class="w-4 h-4 bg-red-600 rounded-full mx-auto mb-1"></div>
-                <span class="font-bold text-gray-900 text-xs">ССС</span>
-              </div>
-              <div class="text-center">
-                <div class="w-4 h-4 bg-blue-600 rounded-full mx-auto mb-1"></div>
-                <span class="font-bold text-gray-900 text-xs">Метаболізм</span>
-              </div>
+              <div class="text-center"><div class="w-4 h-4 bg-purple-600 rounded-full mx-auto mb-1"></div><span class="font-bold text-gray-900 text-xs">ЦНС</span></div>
+              <div class="text-center"><div class="w-4 h-4 bg-red-600 rounded-full mx-auto mb-1"></div><span class="font-bold text-gray-900 text-xs">ССС</span></div>
+              <div class="text-center"><div class="w-4 h-4 bg-blue-600 rounded-full mx-auto mb-1"></div><span class="font-bold text-gray-900 text-xs">Метаболізм</span></div>
             </div>
           </div>
 
-          <!-- Right column -->
+          <!-- Right -->
           <div class="grid grid-cols-1 gap-3">
             <div class="clinical-card p-4">
               <div class="flex items-center gap-3">
@@ -353,19 +340,17 @@
               </div>
             </div>
           </div>
+
         </div>
       </div>
       <div class="logo-badge"><img src="assets/FJGTxmY7nYxO2gRhDrP1X.png" class="logo-img" alt=""/></div>
     </section>
 
-    <!-- ============================================= -->
-    <!-- Slide 4: Показання -->
-    <!-- ============================================= -->
+    <!-- ============ SLIDE 4 ============ -->
     <section id="slide-4" class="slide bg-gray-50">
       <div class="w-full max-w-6xl mx-auto px-3 scrollable">
         <h2 class="text-3xl font-bold text-center mb-3 text-gray-900">Показання до застосування</h2>
         <div class="grid grid-cols-3 gap-4 items-center">
-          <!-- Col 1 -->
           <div class="flex flex-col gap-3">
             <div class="clinical-card p-4 text-center">
               <div class="w-16 h-16 bg-red-600 text-white rounded-xl grid place-items-center text-3xl mx-auto mb-2">🔺</div>
@@ -383,11 +368,9 @@
               <p class="text-xs text-gray-600">Покращення мозкового кровообігу та когнітивних функцій</p>
             </div>
           </div>
-          <!-- Col 2: pack -->
           <div class="flex items-center justify-center">
             <img src="assets/wuKM9Y6TQskEe1Rj7YTWN.png" alt="NeuroCor Product" class="max-h-[380px] object-contain drop-shadow-xl" />
           </div>
-          <!-- Col 3 -->
           <div class="flex flex-col gap-3">
             <div class="clinical-card p-4 text-center">
               <div class="w-16 h-16 bg-emerald-600 text-white rounded-xl grid place-items-center text-3xl mx-auto mb-2">🍬</div>
@@ -410,9 +393,7 @@
       <div class="logo-badge"><img src="assets/FJGTxmY7nYxO2gRhDrP1X.png" class="logo-img" alt=""/></div>
     </section>
 
-    <!-- ============================================= -->
-    <!-- Slide 5: Спосіб застосування -->
-    <!-- ============================================= -->
+    <!-- ============ SLIDE 5 ============ -->
     <section id="slide-5" class="slide bg-gray-50">
       <div class="w-full max-w-6xl mx-auto px-3 scrollable">
         <h2 class="text-3xl font-bold text-center mb-3 text-gray-900">Спосіб застосування</h2>
@@ -451,9 +432,7 @@
       <div class="logo-badge"><img src="assets/FJGTxmY7nYxO2gRhDrP1X.png" class="logo-img" alt=""/></div>
     </section>
 
-    <!-- ============================================= -->
-    <!-- Slide 6: Застереження -->
-    <!-- ============================================= -->
+    <!-- ============ SLIDE 6 ============ -->
     <section id="slide-6" class="slide bg-gray-50">
       <div class="w-full max-w-4xl mx-auto px-3 scrollable">
         <h2 class="text-3xl font-bold text-center mb-4 text-gray-900">Застереження до застосування</h2>
@@ -484,9 +463,7 @@
       <div class="logo-badge"><img src="assets/FJGTxmY7nYxO2gRhDrP1X.png" class="logo-img" alt=""/></div>
     </section>
 
-    <!-- ============================================= -->
-    <!-- Slide 7: Переваги для пацієнта -->
-    <!-- ============================================= -->
+    <!-- ============ SLIDE 7 ============ -->
     <section id="slide-7" class="slide bg-gray-50">
       <div class="w-full max-w-6xl mx-auto px-3 scrollable">
         <h2 class="text-3xl font-bold text-center mb-3 text-gray-900">Переваги для пацієнта</h2>
@@ -548,9 +525,7 @@
       <div class="logo-badge"><img src="assets/FJGTxmY7nYxO2gRhDrP1X.png" class="logo-img" alt=""/></div>
     </section>
 
-    <!-- ============================================= -->
-    <!-- Slide 8: Переваги для лікаря -->
-    <!-- ============================================= -->
+    <!-- ============ SLIDE 8 ============ -->
     <section id="slide-8" class="slide bg-gray-50">
       <div class="w-full max-w-6xl mx-auto px-3 scrollable">
         <h2 class="text-3xl font-bold text-center mb-3 text-gray-900">Переваги для лікаря</h2>
@@ -592,9 +567,7 @@
       <div class="logo-badge"><img src="assets/FJGTxmY7nYxO2gRhDrP1X.png" class="logo-img" alt=""/></div>
     </section>
 
-    <!-- ============================================= -->
-    <!-- Slide 9: Інфографіка -->
-    <!-- ============================================= -->
+    <!-- ============ SLIDE 9 ============ -->
     <section id="slide-9" class="slide bg-gray-50">
       <div class="w-full max-w-6xl mx-auto px-3 scrollable">
         <h2 class="text-2xl sm:text-3xl font-bold text-center mb-2 text-gray-900">Клінічна ефективність НейроКор</h2>
@@ -617,57 +590,60 @@
       <div class="logo-badge"><img src="assets/FJGTxmY7nYxO2gRhDrP1X.png" class="logo-img" alt=""/></div>
     </section>
 
-    <!-- ============================================= -->
-    <!-- Controls: single source of truth (no duplicates) -->
-    <!-- ============================================= -->
-    <div class="controls-wrap">
-      <div class="controls-inner">
-        <button id="prevBtn" class="nav-btn bg-white text-gray-700 border border-gray-300 hover:bg-gray-50 rounded-full" aria-label="Попередній слайд">
-          <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-        </button>
-        <div class="flex items-center gap-2 px-1">
-          <div class="indicator active" data-go="1" title="1"></div>
-          <div class="indicator" data-go="2" title="2"></div>
-          <div class="indicator" data-go="3" title="3"></div>
-          <div class="indicator" data-go="4" title="4"></div>
-          <div class="indicator" data-go="5" title="5"></div>
-          <div class="indicator" data-go="6" title="6"></div>
-          <div class="indicator" data-go="7" title="7"></div>
-          <div class="indicator" data-go="8" title="8"></div>
-          <div class="indicator" data-go="9" title="9"></div>
-        </div>
-        <button id="nextBtn" class="nav-btn bg-blue-600 text-white hover:bg-blue-700 rounded-full" aria-label="Наступний слайд">
-          <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/></svg>
-        </button>
-        <span id="slide-counter" class="text-white text-sm font-medium">1 / 9</span>
-      </div>
+    <!-- ================= NAV (единый набор) ================= -->
+    <div class="nav-side left">
+      <button id="prevBtn" class="nav-btn bg-white text-gray-700 border border-gray-300 hover:bg-gray-50 rounded-full" aria-label="Попередній слайд">
+        <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+      </button>
+    </div>
+    <div class="nav-side right">
+      <button id="nextBtn" class="nav-btn bg-blue-600 text-white hover:bg-blue-700 rounded-full" aria-label="Наступний слайд">
+        <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/></svg>
+      </button>
+    </div>
+
+    <div class="nav-top-center">
+      <div class="indicator active" data-go="1"></div>
+      <div class="indicator" data-go="2"></div>
+      <div class="indicator" data-go="3"></div>
+      <div class="indicator" data-go="4"></div>
+      <div class="indicator" data-go="5"></div>
+      <div class="indicator" data-go="6"></div>
+      <div class="indicator" data-go="7"></div>
+      <div class="indicator" data-go="8"></div>
+      <div class="indicator" data-go="9"></div>
+    </div>
+    <div class="nav-top-right">
+      <span id="slide-counter">1 / 9</span>
     </div>
 
   </div>
 
   <script>
-    // ==================================================
-    // Slides engine (single source; no duplicates)
-    // ==================================================
+    // ========= Slides engine =========
     const totalSlides = 9;
     let currentSlide = 1;
     let autoPlay = true;
-    const autoPlayDelay = 8000; // ms
+    const autoPlayDelay = 8000;
     let autoTimer = null;
 
-    const $ = sel => document.querySelector(sel);
+    const $  = sel => document.querySelector(sel);
     const all = sel => Array.from(document.querySelectorAll(sel));
 
     function updateUI() {
+      // slides
       all('.slide').forEach(s => s.classList.remove('active'));
       const target = $('#slide-' + currentSlide);
-      if (target) target.classList.add('active');
-
+      if (target) {
+        target.classList.add('active');
+        runSlideAnimations(target);
+      }
+      // indicators
       const indicators = all('.indicator');
       indicators.forEach(i => i.classList.remove('active'));
       const active = indicators[currentSlide - 1];
       if (active) active.classList.add('active');
-
+      // counter
       const counter = $('#slide-counter');
       if (counter) counter.textContent = `${currentSlide} / ${totalSlides}`;
     }
@@ -678,22 +654,48 @@
       currentSlide = n;
       updateUI();
     }
-
     function nextSlide() { showSlide(currentSlide + 1); }
     function prevSlide() { showSlide(currentSlide - 1); }
 
-    // Bind controls
+    // ========= Animations trigger (возвращено) =========
+    function runSlideAnimations(slideEl) {
+      // очищаем прошлые inline-стили
+      const animEls = slideEl.querySelectorAll('.clinical-card, .clinical-badge, h2, h3');
+      animEls.forEach((el, idx) => {
+        el.style.animation = 'none';
+        void el.offsetWidth; // reflow
+        // Чередуем лево/право для разнообразия (сохраняем вашу идею)
+        const cls = (idx % 2 === 0) ? 'slide-in-left' : 'slide-in-right';
+        el.classList.remove('slide-in-left','slide-in-right','staggered-fade');
+        el.classList.add('staggered-fade');
+        el.style.animationDelay = (idx * 90) + 'ms';
+      });
+
+      // спец-анимация для логотипа на первом слайде
+      if (slideEl.id === 'slide-1') {
+        const logo = slideEl.querySelector('img');
+        if (logo) {
+          logo.style.animation = 'none';
+          void logo.offsetWidth;
+          logo.style.animation = 'bounceIn 1.05s cubic-bezier(.68,-0.55,.265,1.55) both';
+        }
+      }
+    }
+
+    // ========= Bindings =========
     $('#nextBtn').addEventListener('click', () => { nextSlide(); userInteracted(); });
     $('#prevBtn').addEventListener('click', () => { prevSlide(); userInteracted(); });
-    all('.indicator').forEach(ind => ind.addEventListener('click', () => { const n = +ind.dataset.go; if (n) { showSlide(n); userInteracted(); } }));
+    all('.indicator').forEach(ind => ind.addEventListener('click', () => {
+      const n = +ind.dataset.go; if (n) { showSlide(n); userInteracted(); }
+    }));
 
-    // Keyboard
+    // keyboard
     document.addEventListener('keydown', (e) => {
       if (e.key === 'ArrowRight' || e.key === ' ') { nextSlide(); userInteracted(); }
       if (e.key === 'ArrowLeft') { prevSlide(); userInteracted(); }
     });
 
-    // Touch swipe for mobile
+    // touch swipe
     let touchStartX = 0, touchStartY = 0;
     window.addEventListener('touchstart', (e) => {
       const t = e.changedTouches[0];
@@ -709,14 +711,13 @@
       }
     }, { passive: true });
 
-    // Autoplay (wrap-around)
+    // autoplay
     function startAuto() { if (!autoPlay) return; stopAuto(); autoTimer = setInterval(nextSlide, autoPlayDelay); }
     function stopAuto() { if (autoTimer) { clearInterval(autoTimer); autoTimer = null; } }
     function userInteracted() { stopAuto(); startAuto(); }
 
-    // Init
-    updateUI();
-    startAuto();
+    // init
+    updateUI(); startAuto();
   </script>
 </body>
 </html>
